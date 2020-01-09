@@ -17,31 +17,31 @@ Save My Form 2020 saves data typed into your form in their browser localStorage.
 
 1. Include jQuery:
 
-	```html
-	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	```
+``` html
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+```
 
 2. Include plugin's code:
 
-	```html
-	<script src="src/saveMyForm.jquery.js"></script>
-	```
+``` html
+<script src="src/saveMyForm.jquery.js"></script>
+```
 
 3. Call the plugin when jQuery is ready:
 
-	```javascript
-	$(function () {
-		$("#form_id").saveMyForm();
-	});
-	```
+``` javascript
+$(function () {
+	$("#form_id").saveMyForm();
+});
+```
 
-or for all forms on the current page:
+4. or for all forms on the current page:
 
-    ```javascript
-	$(function () {
-		$("form").saveMyForm();
-	});
-	```
+``` javascript
+$(function () {
+	$("form").saveMyForm();
+});
+```
 
 ## API
 
@@ -49,16 +49,17 @@ or for all forms on the current page:
 
 You can pass options into Save My Form when you initialize the plugin. The default settings (if you just call `$("form").saveMyForm();`) are the same as calling the following:
 
-    ```javascript
-	$("#form_id").saveMyForm({
-		exclude: ':password, :hidden, :file, .disable_save',
-		include: null,
-		sameNameSeparator: '___',
-	});
-	```
+``` javascript
+$("#form_id").saveMyForm({
+	exclude: ':password, :hidden, :file, .disable_save',
+	include: null,
+	sameNameSeparator: '___',
+});
+```
+
 The available options are:
 * `exclude` – jQuery selectors to define form fields that you don't want to save data for. See: https://api.jquery.com/category/selectors/ for more about jQuery selectors
-* `include` - jQuery selectors to define form fields that you DO want to save data for. **NOTE:** Leave this equal to `null` to include everything not excluded
+* `include` - jQuery selectors to define form fields that you DO want to save data for. **NOTE:** Leave this equal to `null` to include everything that is not excluded by the exclude option
 * `sameNameSeparator` - separator to be used between the field name and an index number - when multiple form fields have the same name
 
 ### Defaults and what they achieve
@@ -67,9 +68,9 @@ The default settings above means that password, hidden and file-upload type fiel
 
 The default selector class `disable_save` also causes form fields with that class not to be saved to the browser. To achieve this just add `disable_save` to the field like the following example:
 
-	```html
-	<input type="text" name="my_field" class="disable_save" />
-	```
+``` html
+<input type="text" name="my_field" class="disable_save" />
+```
 
 ### Methods
 
@@ -81,9 +82,9 @@ When Save My Form is initialized, you can use API methods to perform certain fun
 
 If you set a field value using code, the field won't save unless you tell it that it has changed. The easiest way to do this using jQuery is to add `.change()` after setting the value.
 
-    ```javascript
-	$("#form_field_id").val('New Value').change();
-	```
+``` javascript
+$("#form_field_id").val('New Value').change();
+```
 
 ## Compatibility
 
