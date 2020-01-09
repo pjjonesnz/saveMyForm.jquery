@@ -24,7 +24,7 @@ Save My Form 2020 saves data typed into your form in their browser localStorage.
 2. Include plugin's code:
 
 	```html
-	<script src="src/save.my.form.jquery.js"></script>
+	<script src="src/saveMyForm.jquery.js"></script>
 	```
 
 3. Call the plugin when jQuery is ready:
