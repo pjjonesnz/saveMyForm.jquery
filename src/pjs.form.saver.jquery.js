@@ -17,7 +17,7 @@
     // Create the defaults once
     var pluginName = 'PJsFormSaver',
         defaults = {
-            propertyName: 'value',
+            sameNameSeparator: '___',
         };
 
     // The actual plugin constructor
@@ -31,6 +31,7 @@
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
         this._name = pluginName;
+        this._multipleList = {};
         /**
          * @todo Auto generate a name from the document path if id not supplied
          */
@@ -42,7 +43,8 @@
     $.extend(PJsFormSaver.prototype, {
         init: function() {
             var $plugin = this;
-            var elementList = this.getElementList();
+            var elementList = [];
+            
             $(this.element)
                 .find(':input')
                 .change(function(e) {
@@ -54,10 +56,25 @@
                     }, 500)
                 )
                 .each(function() {
-                    $plugin.loadElement(this);
                     var name = $plugin.getName(this);
-                    if (name && elementList.indexOf(name) === -1) {
-                        elementList.push(name);
+                    if(name) {
+                        if (elementList.indexOf(name) === -1) {
+                            elementList.push(name);
+                        }
+                        else {
+                            // If another element is found with the same name that isn't a radio group, add multiple data to differentiate
+                            if(! $(this).is(':radio')) {
+                                if(!$plugin._multipleList[name]) {
+                                    $plugin._multipleList[name] = 1;
+                                }
+                                
+                                $.data(this, 'multiple', $plugin._multipleList[name]);
+                                elementList.push(name + $plugin.settings.sameNameSeparator + $plugin._multipleList[name]);
+                                
+                                $plugin._multipleList[name]++;
+                            }
+                        }
+                        $plugin.loadElement(this);
                     }
                 });
             this.storeElementList(elementList);
@@ -111,7 +128,7 @@
             if ($(element).attr('name') == undefined) {
                 return undefined;
             }
-            return this._formName + '_' + $(element).attr('name');
+            return this._formName + '_' + $(element).attr('name') + ($.data(element, 'multiple') !== undefined ? this.settings.sameNameSeparator + $.data(element, 'multiple') : '');
         }
     });
 
