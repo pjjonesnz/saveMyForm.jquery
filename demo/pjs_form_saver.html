@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>jQuery Boilerplate</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="../src/pjs.form.saver.jquery.js"></script>
+</head>
+
+<body>
+    <form id="myform">
+        <label>Name: <input name="my_name" /></label><br />
+        <label><textarea name="my_textarea"></textarea></label><br />
+        <label>Box: <input type="checkbox" name="my_checkbox" /></label><br />
+        <input type="radio" name="group2" value="Water"> Water<br>
+        <input type="radio" name="group2" value="Beer"> Beer<br>
+        <input type="radio" name="group2" value="Wine" checked> Wine<br>
+        
+        <select name="my_select" multiple>
+            <optgroup label="Swedish Cars">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+            </optgroup>
+            <optgroup label="German Cars">
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </optgroup>
+        </select><br>
+        <input type="button" id="reset" value="RESET" />
+    </form>
+    <form id="form2">
+        <h2>HTML5 Input Types</h2>
+
+        <div class="text">
+            <label for="type-text">Text (text)</label>
+            <input type="text" name="type-text" id="type-text">
+        </div>
+        <div class="text">
+            <label for="type-search">Search (search)</label>
+            <input type="search" name="type-search" id="type-search">
+        </div>
+        <div class="text">
+            <label for="type-tel">Telephone (tel)</label>
+            <input type="tel" name="type-tel" id="type-tel">
+        </div>
+        <div class="text">
+            <label for="type-url">URL (url)</label>
+            <input type="url" name="type-url" id="type-url">
+        </div>
+        <div class="text">
+            <label for="type-email">E-mail (email)</label>
+            <input type="email" name="type-email" id="type-email">
+        </div>
+        <div class="text">
+            <label for="type-datetime">Date and Time (datetime)</label>
+            <input type="datetime" name="type-datetime" id="type-datetime">
+        </div>
+        <div class="text">
+            <label for="type-date">Date (date)</label>
+            <input type="date" name="type-date" id="type-date">
+        </div>
+        <div class="text">
+            <label for="type-month">Month (month)</label>
+            <input type="month" name="type-month" id="type-month">
+        </div>
+        <div class="text">
+            <label for="type-week">Week (week)</label>
+            <input type="week" name="type-week" id="type-week">
+        </div>
+        <div class="text">
+            <label for="type-time">Time (time)</label>
+            <input type="time" name="type-time" id="type-time">
+        </div>
+        <div class="text">
+            <label for="type-datetime-local">Local Date and Time (datetime-local)</label>
+            <input type="datetime-local" name="type-datetime-local" id="type-datetime-local">
+        </div>
+        <div class="text">
+            <label for="type-number">Number (number)</label>
+            <input type="number" name="type-number" id="type-number" min="0" max="20">
+        </div>
+        <div class="text">
+            <label for="type-range">Range (range)</label>
+            <input type="range" name="type-range" id="type-range" min="0" max="100">
+        </div>
+        <div class="text">
+            <label for="type-color">Colour (color)</label>
+            <input type="color" name="type-color" id="type-color">
+        </div>
+        <div class="submit-area">
+            <input type="submit" value="Submit" name="submit-1">
+        </div>
+    </form>
+
+    <form id="form3" method="get" enctype="application/x-www-form-urlencoded">
+    
+        <p>
+            <label>Name
+                <input type="text" name="customer_name" required>
+            </label>
+        </p>
+    
+        <p>
+            <label>Phone
+                <input type="tel" name="phone_number">
+            </label>
+        </p>
+    
+        <p>
+            <label>Email
+                <input type="email" name="email_address">
+            </label>
+        </p>
+    
+        <fieldset>
+            <legend>Which taxi do you require?</legend>
+            <p><label> <input type="radio" name="taxi" required value="car"> Car </label></p>
+            <p><label> <input type="radio" name="taxi" required value="van"> Van </label></p>
+            <p><label> <input type="radio" name="taxi" required value="tuktuk"> Tuk Tuk </label></p>
+        </fieldset>
+    
+        <fieldset>
+            <legend>Extras</legend>
+            <p><label> <input type="checkbox" name="extras" value="baby"> Baby Seat </label></p>
+            <p><label> <input type="checkbox" name="extras" value="wheelchair"> Wheelchair Access </label></p>
+            <p><label> <input type="checkbox" name="extras" value="tip"> Stock Tip </label></p>
+        </fieldset>
+    
+        <p>
+            <label>Pickup Date/Time
+                <input type="datetime-local" name="pickup_time" required>
+            </label>
+        </p>
+    
+        <p>
+            <label>Pickup Place
+                <select id="pickup_place" name="pickup_place">
+                    <option value="" selected="selected">Select One</option>
+                    <option value="office">Taxi Office</option>
+                    <option value="town_hall">Town Hall</option>
+                    <option value="telepathy">We'll Guess!</option>
+                </select>
+            </label>
+        </p>
+    
+        <p>
+            <label>Dropoff Place
+                <input type="text" name="dropoff_place" required list="destinations">
+            </label>
+    
+            <datalist id="destinations">
+                <option value="Airport">
+                <option value="Beach">
+                <option value="Fred Flinstone's House">
+            </datalist>
+        </p>
+    
+        <p>
+            <label>Special Instructions
+                <textarea name="comments" maxlength="500"></textarea>
+            </label>
+        </p>
+    
+        <p><button>Submit Booking</button></p>
+    
+    </form>
+
+    <script>
+        $(function () {
+            
+            $("#reset").click( function() {
+                console.log('here');
+                $("#myform").PJsFormSaver('clearStorage');
+                
+            });
+            $("form").PJsFormSaver();
+        });
+    </script>
+</body>
+
+</html>
