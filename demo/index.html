@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <title>jQuery Boilerplate</title>
+    <title>jQuery Save My Form 2020 Demo</title>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="../src/pjs.form.saver.jquery.js"></script>
+    <script src="../src/save.my.form.jquery.js"></script>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
         <label>File: <input type="file" name="my_file" /></label><br />
         <label>Password: <input type="password" name="my_password" /></label><br />
         <label>Hidden: <input type="hidden" name="my_hidden_field" id="my_hidden_field" value="0"><input type="button" id="show_hidden_value" value="Show Value" /> <input type="button" id="set_hidden_value" value="Set Value" /></label><br />
-        <label>Exclude this item by classname: <input type="text" name="exclude_this" class="exclude_form_save" /></label><br />
+        <label>Exclude this item by classname: <input type="text" name="exclude_this" class="disable_save" /></label><br />
         <input type="button" id="reset" value="RESET" />
     </form>
     <form id="demo_dynamic_change">
@@ -235,8 +235,7 @@
         $(function () {
             
             $("#reset").click( function() {
-                $("#myform").PJsFormSaver('clearStorage');
-                
+                $("#myform").saveMyForm('clearStorage');
             });
             $("#show_hidden_value").click( function() {
                 alert('Hidden field value: ' + $("#my_hidden_field").val());
@@ -247,7 +246,7 @@
                 hiddenvalue ++;
                 $("#my_hidden_field").val(hiddenvalue).change();
             })
-            $("form").PJsFormSaver();
+            $("form").saveMyForm();
         });
     </script>
 </body>

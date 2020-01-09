@@ -1,26 +1,21 @@
-// the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other plugins which may not be closed properly.
+/*!
+ * Save My Form 2020 - a jQuery Plugin
+ * version: 0.2
+ * Copyright: 2020 Paul Jones
+ * MIT license
+ */
+
 (function($, window, document, undefined) {
     'use strict';
 
-    // undefined is used here as the undefined global variable in ECMAScript 3 is
-    // mutable (ie. it can be changed by someone else). undefined isn't really being
-    // passed in so we can ensure the value of it is truly undefined. In ES5, undefined
-    // can no longer be modified.
-
-    // window and document are passed through as local variables rather than global
-    // as this (slightly) quickens the resolution process and can be more efficiently
-    // minified (especially when both are regularly referenced in your plugin).
-
-    // Create the defaults once
-    var pluginName = 'PJsFormSaver',
+    var pluginName = 'saveMyForm',
         defaults = {
             sameNameSeparator: '___',
-            exclude: ':password, :hidden, :file, .exclude_save',
+            exclude: ':password, :hidden, :file, .disable_save',
             include: null,
         };
 
-    function PJsFormSaver(element, options) {
+    function saveMyForm(element, options) {
         this.element = element;
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
@@ -34,8 +29,7 @@
         this.init();
     }
 
-    // Avoid Plugin.prototype conflicts
-    $.extend(PJsFormSaver.prototype, {
+    $.extend(saveMyForm.prototype, {
         init: function() {
             var $plugin = this;
             $(this.element)
@@ -147,7 +141,7 @@
                 $plugin = $.data(
                     this,
                     'plugin_' + pluginName,
-                    new PJsFormSaver(this, pluginOptions)
+                    new saveMyForm(this, pluginOptions)
                 );
             }
 
@@ -160,20 +154,6 @@
         });
     };
 })(jQuery, window, document);
-
-/** 
- * EXAMPLES:
- *      $(element).PJsFormSaver({option: value}) // instantiate
- *      $(element).PJsFormSaver('callMeWithShortcut', {name: value, name2: value2}) 
- *      $(element).PJsFormSaver('callMeWithShortcut', [arg1, arg2, arg3]) 
- *      $(element).PJsFormSaver('callMeWithShortcut', singleArgument) 
- * 
- * Access plugin data:
- *      $("#element").data('plugin_PJsFormSaver').settings.propertyName
- * 
- * Call a public method directly:
- *      $('#element').data('plugin_PJsFormSaver').foo_public_method();
-*/
 
 // Underscore debounce function
 function debounce(func, wait, immediate){
