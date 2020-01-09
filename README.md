@@ -43,6 +43,12 @@ $(function () {
 });
 ```
 
+## Note
+
+For this scipt to work correctly, please note the following:
+1. All forms need to have an id attribute
+2. All form fields need to have a name
+
 ## API
 
 ### Options
