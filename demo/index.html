@@ -1,254 +1,206 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>jQuery Save My Form 2020 Demo</title>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="../src/save.my.form.jquery.js"></script>
-</head>
+    <head>
+        <title>Save My Form 2020 - a jQuery Plugin - Demo</title>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="../src/save.my.form.jquery.js"></script>
+        <script>
+            $(function () {
+                $("form").saveMyForm();
+            });
+        </script>
+        <style>
+            fieldset {
+                margin: 20px;
+            }
+            input, select {
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
 
-<body>
-    <form id="myform">
-        <label>Name: <input name="my_name" /></label><br />
-        <label><textarea name="my_textarea"></textarea></label><br />
-        <label>Box: <input type="checkbox" name="my_checkbox" /></label><br />
-        <input type="radio" name="group2" value="Water"> Water<br>
-        <input type="radio" name="group2" value="Beer"> Beer<br>
-        <input type="radio" name="group2" value="Wine" checked> Wine<br>
+    <body>
+        <h2>Save My Form 2020 - a jQuery Plugin</h2>
+        <form id="your_average_form">
+            <fieldset>
+                <legend>Demo: An Average Form</legend>
+                <label>Text: <input name="my_name" /></label><br />
+                <label>Text Area:<br /><textarea name="my_textarea" cols="80" rows="5"></textarea></label><br />
+                <label>Check Box: <input type="checkbox" name="my_checkbox" /></label><br />
+                <input type="radio" name="group2" value="Radio 1"> Radio 1<br />
+                <input type="radio" name="group2" value="Radio 2"> Radio 2<br />
+                <input type="radio" name="group2" value="Radio 3" checked> Radio 3<br />
+                <label>Multi Select: <br />
+                <select name="multi_select" multiple size="8">
+                    <optgroup label="Swedish Cars">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                    </optgroup>
+                    <optgroup label="German Cars">
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </optgroup>
+                </select></label><br />
+                <label>Select: <select name="my_select">
+                    <option selected value="">--- SELECT AN OPTION ---</option>
+                    <option value="option_one">Option 1</option>
+                    <option value="option_two">Option 2</option>
+                    <option value="option_three">Option 3</option>
+                    <option value="option_four">Option 4</option>
+                    <option value="option_five">Option 5</option>
+                </select></label><br />
+                <input type="button" id="reset_my_form" value="RESET SAVED DATA FOR ABOVE FORM" />
+            </fieldset>
         
-        <select name="my_select" multiple>
-            <optgroup label="Swedish Cars">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-            </optgroup>
-            <optgroup label="German Cars">
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </optgroup>
-        </select><br>
-        <label>File: <input type="file" name="my_file" /></label><br />
-        <label>Password: <input type="password" name="my_password" /></label><br />
-        <label>Hidden: <input type="hidden" name="my_hidden_field" id="my_hidden_field" value="0"><input type="button" id="show_hidden_value" value="Show Value" /> <input type="button" id="set_hidden_value" value="Set Value" /></label><br />
-        <label>Exclude this item by classname: <input type="text" name="exclude_this" class="disable_save" /></label><br />
-        <input type="button" id="reset" value="RESET" />
-    </form>
-    <form id="demo_dynamic_change">
-        <fieldset>
-            <legend>Demo: Dynamically Change Data</legend>
-            <label>Number:<input name="data_one" id="data_one_id" value="1" /></label><br />
-            <input type="button" id="increment_value" value="Increment Number" />
-        </fieldset>
-    </form>
-    <script>
-        $(function () {
-            $('#increment_value').click( function() {
-                var value = $('#data_one_id').val();
-                value++;
-                $('#data_one_id').val(value).change();
-            });
-        });
-    </script>
-    <form id="form2">
-        <h2>HTML5 Input Types</h2>
-
-        <div class="text">
-            <label for="type-text">Text (text)</label>
-            <input type="text" name="type-text" id="type-text">
-        </div>
-        <div class="text">
-            <label for="type-search">Search (search)</label>
-            <input type="search" name="type-search" id="type-search">
-        </div>
-        <div class="text">
-            <label for="type-tel">Telephone (tel)</label>
-            <input type="tel" name="type-tel" id="type-tel">
-        </div>
-        <div class="text">
-            <label for="type-url">URL (url)</label>
-            <input type="url" name="type-url" id="type-url">
-        </div>
-        <div class="text">
-            <label for="type-email">E-mail (email)</label>
-            <input type="email" name="type-email" id="type-email">
-        </div>
-        <div class="text">
-            <label for="type-datetime">Date and Time (datetime)</label>
-            <input type="datetime" name="type-datetime" id="type-datetime">
-        </div>
-        <div class="text">
-            <label for="type-date">Date (date)</label>
-            <input type="date" name="type-date" id="type-date">
-        </div>
-        <div class="text">
-            <label for="type-date">Date (date)</label>
-            <input type="date" name="type-date" id="type-date">
-        </div>
-        <div class="text">
-            <label for="type-date">Date (date)</label>
-            <input type="date" name="type-date" id="type-date">
-        </div>
-        <div class="text">
-            <label for="type-month">Month (month)</label>
-            <input type="month" name="type-month" id="type-month">
-        </div>
-        <div class="text">
-            <label for="type-week">Week (week)</label>
-            <input type="week" name="type-week" id="type-week">
-        </div>
-        <div class="text">
-            <label for="type-time">Time (time)</label>
-            <input type="time" name="type-time" id="type-time">
-        </div>
-        <div class="text">
-            <label for="type-datetime-local">Local Date and Time (datetime-local)</label>
-            <input type="datetime-local" name="type-datetime-local" id="type-datetime-local">
-        </div>
-        <div class="text">
-            <label for="type-number">Number (number)</label>
-            <input type="number" name="type-number" id="type-number" min="0" max="20">
-        </div>
-        <div class="text">
-            <label for="type-range">Range (range)</label>
-            <input type="range" name="type-range" id="type-range" min="0" max="100">
-        </div>
-        <div class="text">
-            <label for="type-color">Colour (color)</label>
-            <input type="color" name="type-color" id="type-color">
-        </div>
-        <div class="submit-area">
-            <input type="submit" value="Submit" name="submit-1">
-        </div>
-    </form>
-
-    <form action="#" method="post" class="demoForm" name="demoForm">
-    
-        <fieldset>
-            <legend>Demo: Checkboxes Sharing Same Name</legend>
-    
-            <p>Check the types of sports or fitness activities you engage in on a regular basis.</p>
-    
-            <p>
-                <label><input type="checkbox" name="sports[]" value="cycling" /> cycling</label>
-                <label><input type="checkbox" name="sports[]" value="running" /> running</label>
-                <label><input type="checkbox" name="sports[]" value="visit gym" /> visit gym</label>
-                <label><input type="checkbox" name="sports[]" value="swimming" /> swimming</label>
-                <label><input type="checkbox" name="sports[]" value="team sports" /> team sport(s)</label>
-                <label><input type="checkbox" name="sports[]" value="other" /> other</label>
-            </p>
-    
-        </fieldset>
-    
-    </form>
-
-    <form name="demo_same_name_1">
-        <fieldset>
-            <legend>Demo: Email fields Sharing Same Name</legend>
-        <label>Email 1:<input name="email" /></label><br />
-        <label>Email 2:<input name="email" /></label><br />
-        <label>Email 3:<input name="email" /></label><br />
-        </fieldset>
-    </form>
-
-    <form name="demo_same_name_2">
-        <fieldset>
-            <legend>Demo: Email fields Sharing Same Name - PHP Naming style</legend>
-            <label>Email 1:<input name="email[]" /></label><br />
-            <label>Email 2:<input name="email[]" /></label><br />
-            <label>Email 3:<input name="email[]" /></label><br />
-        </fieldset>
-    </form>
-
-    <form id="form3" method="get" enctype="application/x-www-form-urlencoded">
-    
-        <p>
-            <label>Name
-                <input type="text" name="customer_name" required>
-            </label>
-        </p>
-    
-        <p>
-            <label>Phone
-                <input type="tel" name="phone_number">
-            </label>
-        </p>
-    
-        <p>
-            <label>Email
-                <input type="email" name="email_address">
-            </label>
-        </p>
-    
-        <fieldset>
-            <legend>Which taxi do you require?</legend>
-            <p><label> <input type="radio" name="taxi" required value="car"> Car </label></p>
-            <p><label> <input type="radio" name="taxi" required value="van"> Van </label></p>
-            <p><label> <input type="radio" name="taxi" required value="tuktuk"> Tuk Tuk </label></p>
-        </fieldset>
-    
-        <fieldset>
-            <legend>Extras</legend>
-            <p><label> <input type="checkbox" name="extras" value="baby"> Baby Seat </label></p>
-            <p><label> <input type="checkbox" name="extras" value="wheelchair"> Wheelchair Access </label></p>
-            <p><label> <input type="checkbox" name="extras" value="tip"> Stock Tip </label></p>
-        </fieldset>
-    
-        <p>
-            <label>Pickup Date/Time
-                <input type="datetime-local" name="pickup_time" required>
-            </label>
-        </p>
-    
-        <p>
-            <label>Pickup Place
-                <select id="pickup_place" name="pickup_place">
-                    <option value="" selected="selected">Select One</option>
-                    <option value="office">Taxi Office</option>
-                    <option value="town_hall">Town Hall</option>
-                    <option value="telepathy">We'll Guess!</option>
-                </select>
-            </label>
-        </p>
-    
-        <p>
-            <label>Dropoff Place
-                <input type="text" name="dropoff_place" required list="destinations">
-            </label>
-    
-            <datalist id="destinations">
-                <option value="Airport">
-                <option value="Beach">
-                <option value="Fred Flinstone's House">
-            </datalist>
-        </p>
-    
-        <p>
-            <label>Special Instructions
-                <textarea name="comments" maxlength="500"></textarea>
-            </label>
-        </p>
-    
-        <p><button>Submit Booking</button></p>
-    
-    </form>
-
-    <script>
-        $(function () {
+            <fieldset>
+                <legend>Demo: These fields are excluded from saving to localStorage by default</legend>
+                <label>File: <input type="file" name="my_file" /></label><br />
+                <label>Password: <input type="password" name="my_password" /></label><br />
+                <label>Hidden: <input type="hidden" name="my_hidden_field" id="my_hidden_field" value="0"><input type="button" id="show_hidden_value" value="Show Value" /> <input type="button" id="set_hidden_value" value="Set Value" /></label><br />
+                <label>Exclude this item by classname: <input type="text" name="exclude_this" class="disable_save" /></label><br />
+            </fieldset>
             
-            $("#reset").click( function() {
-                $("#myform").saveMyForm('clearStorage');
+        </form>
+        <script>
+            $(function () {
+                $("#reset_my_form").click(function () {
+                    $("#your_average_form").saveMyForm('clearStorage');
+                });
+                $("#show_hidden_value").click(function () {
+                    alert('Hidden field value: ' + $("#my_hidden_field").val());
+                })
+                $("#set_hidden_value").click(function () {
+                    var hiddenvalue = $("#my_hidden_field").val();
+                    hiddenvalue++;
+                    $("#my_hidden_field").val(hiddenvalue).change();
+                })
             });
-            $("#show_hidden_value").click( function() {
-                alert('Hidden field value: ' + $("#my_hidden_field").val());
-            })
-            $("#set_hidden_value").click(function () {
-                console.log('set');
-                var hiddenvalue = $("#my_hidden_field").val();
-                hiddenvalue ++;
-                $("#my_hidden_field").val(hiddenvalue).change();
-            })
-            $("form").saveMyForm();
-        });
-    </script>
-</body>
+        </script>
 
+        <form id="demo_dynamic_change">
+            <fieldset>
+                <legend>Demo: Dynamically Change Data</legend>
+                <label>Number:<input name="data_one" id="data_one_id" value="1" /></label><br />
+                <input type="button" id="increment_value" value="Increment Number" />
+            </fieldset>
+        </form>
+        <script>
+            $(function () {
+                $('#increment_value').click( function() {
+                    var value = $('#data_one_id').val();
+                    value++;
+                    $('#data_one_id').val(value).change();
+                });
+            });
+        </script>
+
+        <form id="html5_input_types">
+            <fieldset>
+                <legend>Demo: HTML5 Input Types</legend>
+                <div class="text">
+                    <label for="type-text">Text (text)</label>
+                    <input type="text" name="type-text" id="type-text">
+                </div>
+                <div class="text">
+                    <label for="type-search">Search (search)</label>
+                    <input type="search" name="type-search" id="type-search">
+                </div>
+                <div class="text">
+                    <label for="type-tel">Telephone (tel)</label>
+                    <input type="tel" name="type-tel" id="type-tel">
+                </div>
+                <div class="text">
+                    <label for="type-url">URL (url)</label>
+                    <input type="url" name="type-url" id="type-url">
+                </div>
+                <div class="text">
+                    <label for="type-email">E-mail (email)</label>
+                    <input type="email" name="type-email" id="type-email">
+                </div>
+                <div class="text">
+                    <label for="type-datetime">Date and Time (datetime)</label>
+                    <input type="datetime" name="type-datetime" id="type-datetime">
+                </div>
+                <div class="text">
+                    <label for="type-date">Date (date)</label>
+                    <input type="date" name="type-date" id="type-date">
+                </div>
+                <div class="text">
+                    <label for="type-date">Date (date)</label>
+                    <input type="date" name="type-date" id="type-date">
+                </div>
+                <div class="text">
+                    <label for="type-date">Date (date)</label>
+                    <input type="date" name="type-date" id="type-date">
+                </div>
+                <div class="text">
+                    <label for="type-month">Month (month)</label>
+                    <input type="month" name="type-month" id="type-month">
+                </div>
+                <div class="text">
+                    <label for="type-week">Week (week)</label>
+                    <input type="week" name="type-week" id="type-week">
+                </div>
+                <div class="text">
+                    <label for="type-time">Time (time)</label>
+                    <input type="time" name="type-time" id="type-time">
+                </div>
+                <div class="text">
+                    <label for="type-datetime-local">Local Date and Time (datetime-local)</label>
+                    <input type="datetime-local" name="type-datetime-local" id="type-datetime-local">
+                </div>
+                <div class="text">
+                    <label for="type-number">Number (number)</label>
+                    <input type="number" name="type-number" id="type-number" min="0" max="20">
+                </div>
+                <div class="text">
+                    <label for="type-range">Range (range)</label>
+                    <input type="range" name="type-range" id="type-range" min="0" max="100">
+                </div>
+                <div class="text">
+                    <label for="type-color">Colour (color)</label>
+                    <input type="color" name="type-color" id="type-color">
+                </div>
+            </fieldset>
+        </form>
+
+        <form action="#" method="post" class="demoForm" name="demoForm">
+        
+            <fieldset>
+                <legend>Demo: Checkboxes Sharing the Same Name</legend>
+        
+                <p>Favourite activities - select all that apply</p>
+        
+                <p>
+                    <label><input type="checkbox" name="sports[]" value="Walking" />Walking</label>
+                    <label><input type="checkbox" name="sports[]" value="Running" />Running</label>
+                    <label><input type="checkbox" name="sports[]" value="Biking" />Biking</label>
+                    <label><input type="checkbox" name="sports[]" value="Swimming" />Swimming</label>
+                    <label><input type="checkbox" name="sports[]" value="Rubgy" />Rubgy</label>
+                    <label><input type="checkbox" name="sports[]" value="Football" />Football</label>
+                </p>
+        
+            </fieldset>
+        
+        </form>
+
+        <form name="demo_same_name_1">
+            <fieldset>
+                <legend>Demo: Input Fields Sharing the Same Name</legend>
+            <label>Email 1:<input name="email" /></label><br />
+            <label>Email 2:<input name="email" /></label><br />
+            <label>Email 3:<input name="email" /></label><br />
+            </fieldset>
+        </form>
+
+        <form name="demo_same_name_2">
+            <fieldset>
+                <legend>Demo: PHP Style Input fields Sharing the Same Name</legend>
+                <label>Email 1:<input name="email[]" /></label><br />
+                <label>Email 2:<input name="email[]" /></label><br />
+                <label>Email 3:<input name="email[]" /></label><br />
+            </fieldset>
+        </form>
+    </body>
 </html>

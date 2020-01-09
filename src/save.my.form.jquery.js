@@ -10,9 +10,9 @@
 
     var pluginName = 'saveMyForm',
         defaults = {
-            sameNameSeparator: '___',
             exclude: ':password, :hidden, :file, .disable_save',
             include: null,
+            sameNameSeparator: '___',
         };
 
     function saveMyForm(element, options) {
