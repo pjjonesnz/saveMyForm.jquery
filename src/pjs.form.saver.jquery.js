@@ -1,5 +1,3 @@
-
-
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
 (function($, window, document, undefined) {
@@ -18,22 +16,19 @@
     var pluginName = 'PJsFormSaver',
         defaults = {
             sameNameSeparator: '___',
+            exclude: ':password, :hidden, :file, .exclude_save',
+            include: null,
         };
 
-    // The actual plugin constructor
     function PJsFormSaver(element, options) {
         this.element = element;
-
-        // jQuery has an extend method which merges the contents of two or
-        // more objects, storing the result in the first object. The first object
-        // is generally empty as we don't want to alter the default options for
-        // future instances of the plugin
         this.settings = $.extend({}, defaults, options);
         this._defaults = defaults;
         this._name = pluginName;
         this._multipleList = {};
+        this._elementList = [];
         /**
-         * @todo Auto generate a name from the document path if id not supplied
+         * @todo Auto generate a name from the document path and form order on page if id or name not supplied
          */
         this._formName = $(element).attr('id');
         this.init();
@@ -43,41 +38,52 @@
     $.extend(PJsFormSaver.prototype, {
         init: function() {
             var $plugin = this;
-            var elementList = [];
-            
             $(this.element)
                 .find(':input')
-                .change(function(e) {
+                .each(function() {
+                    $plugin.addElement(this);
+                });
+            this.storeElementList();
+        },
+        addElement: function(element) {
+            if($(element).is(this.settings.exclude)) {
+                return;
+            }
+            if(this.settings.include !== null && !$(element).is(this.settings.include)) {
+                return;
+            }
+            var $plugin = this;
+            var name = this.getName(element);
+            if (name) {
+                $(element).change(function(e) {
                     $plugin.storeElement(e);
                 })
                 .keyup(
                     debounce(function(e) {
                         $plugin.storeElement(e);
                     }, 500)
-                )
-                .each(function() {
-                    var name = $plugin.getName(this);
-                    if(name) {
-                        if (elementList.indexOf(name) === -1) {
-                            elementList.push(name);
+                );
+                if (this._elementList.indexOf(name) === -1) {
+                    this._elementList.push(name);
+                } else {
+                    // If another element is found with the same name that isn't a radio group, add multiple data to differentiate
+                    if (!$(element).is(':radio')) {
+                        if (!this._multipleList[name]) {
+                            this._multipleList[name] = 1;
                         }
-                        else {
-                            // If another element is found with the same name that isn't a radio group, add multiple data to differentiate
-                            if(! $(this).is(':radio')) {
-                                if(!$plugin._multipleList[name]) {
-                                    $plugin._multipleList[name] = 1;
-                                }
-                                
-                                $.data(this, 'multiple', $plugin._multipleList[name]);
-                                elementList.push(name + $plugin.settings.sameNameSeparator + $plugin._multipleList[name]);
-                                
-                                $plugin._multipleList[name]++;
-                            }
-                        }
-                        $plugin.loadElement(this);
+
+                        $.data(element, 'multiple', this._multipleList[name]);
+                        this._elementList.push(
+                            name +
+                                this.settings.sameNameSeparator +
+                                this._multipleList[name]
+                        );
+
+                        this._multipleList[name]++;
                     }
-                });
-            this.storeElementList(elementList);
+                }
+                this.loadElement(element);
+            }
         },
         loadElement: function(element) {
             var name = this.getName(element);
@@ -111,14 +117,13 @@
         getElementList: function() {
             return JSON.parse( localStorage.getItem('elementList_' + this._formName) ) || [];
         },
-        storeElementList: function(elementList) {
-            localStorage.setItem('elementList_' + this._formName, JSON.stringify(elementList));
+        storeElementList: function() {
+            localStorage.setItem('elementList_' + this._formName, JSON.stringify(this._elementList));
         },
         clearElementList: function() {
             localStorage.removeItem('elementList_' + this._formName);
         },
         clearStorage: function() {
-            console.log('clear');
             var elements = this.getElementList();
             $.each(elements, function(key, value) {
                 localStorage.removeItem(value);
@@ -132,8 +137,6 @@
         }
     });
 
-    // A really lightweight plugin wrapper around the constructor,
-    // preventing against multiple instantiations
     $.fn[pluginName] = function(methodOrOptions, args) {
         return this.each(function() {
             var $plugin = $.data(this, 'plugin_' + pluginName);
