@@ -26,8 +26,27 @@
                 <option value="audi">Audi</option>
             </optgroup>
         </select><br>
+        <label>File: <input type="file" name="my_file" /></label><br />
+        <label>Password: <input type="password" name="my_password" /></label><br />
+        <label>Hidden: <input type="hidden" name="my_hidden_field" id="my_hidden_field" value="0"><input type="button" id="show_hidden_value" value="Show Value" /> <input type="button" id="set_hidden_value" value="Set Value" /></label><br />
         <input type="button" id="reset" value="RESET" />
     </form>
+    <form id="demo_dynamic_change">
+        <fieldset>
+            <legend>Demo: Dynamically Change Data</legend>
+            <label>Number:<input name="data_one" id="data_one_id" value="1" /></label><br />
+            <input type="button" id="increment_value" value="Increment Number" />
+        </fieldset>
+    </form>
+    <script>
+        $(function () {
+            $('#increment_value').click( function() {
+                var value = $('#data_one_id').val();
+                value++;
+                $('#data_one_id').val(value).change();
+            });
+        });
+    </script>
     <form id="form2">
         <h2>HTML5 Input Types</h2>
 
@@ -54,6 +73,14 @@
         <div class="text">
             <label for="type-datetime">Date and Time (datetime)</label>
             <input type="datetime" name="type-datetime" id="type-datetime">
+        </div>
+        <div class="text">
+            <label for="type-date">Date (date)</label>
+            <input type="date" name="type-date" id="type-date">
+        </div>
+        <div class="text">
+            <label for="type-date">Date (date)</label>
+            <input type="date" name="type-date" id="type-date">
         </div>
         <div class="text">
             <label for="type-date">Date (date)</label>
@@ -90,6 +117,44 @@
         <div class="submit-area">
             <input type="submit" value="Submit" name="submit-1">
         </div>
+    </form>
+
+    <form action="#" method="post" class="demoForm" name="demoForm">
+    
+        <fieldset>
+            <legend>Demo: Checkboxes Sharing Same Name</legend>
+    
+            <p>Check the types of sports or fitness activities you engage in on a regular basis.</p>
+    
+            <p>
+                <label><input type="checkbox" name="sports[]" value="cycling" /> cycling</label>
+                <label><input type="checkbox" name="sports[]" value="running" /> running</label>
+                <label><input type="checkbox" name="sports[]" value="visit gym" /> visit gym</label>
+                <label><input type="checkbox" name="sports[]" value="swimming" /> swimming</label>
+                <label><input type="checkbox" name="sports[]" value="team sports" /> team sport(s)</label>
+                <label><input type="checkbox" name="sports[]" value="other" /> other</label>
+            </p>
+    
+        </fieldset>
+    
+    </form>
+
+    <form name="demo_same_name_1">
+        <fieldset>
+            <legend>Demo: Email fields Sharing Same Name</legend>
+        <label>Email 1:<input name="email" /></label><br />
+        <label>Email 2:<input name="email" /></label><br />
+        <label>Email 3:<input name="email" /></label><br />
+        </fieldset>
+    </form>
+
+    <form name="demo_same_name_2">
+        <fieldset>
+            <legend>Demo: Email fields Sharing Same Name - PHP Naming style</legend>
+            <label>Email 1:<input name="email[]" /></label><br />
+            <label>Email 2:<input name="email[]" /></label><br />
+            <label>Email 3:<input name="email[]" /></label><br />
+        </fieldset>
     </form>
 
     <form id="form3" method="get" enctype="application/x-www-form-urlencoded">
@@ -169,10 +234,18 @@
         $(function () {
             
             $("#reset").click( function() {
-                console.log('here');
                 $("#myform").PJsFormSaver('clearStorage');
                 
             });
+            $("#show_hidden_value").click( function() {
+                alert('Hidden field value: ' + $("#my_hidden_field").val());
+            })
+            $("#set_hidden_value").click(function () {
+                console.log('set');
+                var hiddenvalue = $("#my_hidden_field").val();
+                hiddenvalue ++;
+                $("#my_hidden_field").val(hiddenvalue).change();
+            })
             $("form").PJsFormSaver();
         });
     </script>
