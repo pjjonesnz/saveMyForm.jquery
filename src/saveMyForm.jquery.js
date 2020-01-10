@@ -81,8 +81,9 @@
         },
         loadElement: function(element) {
             var name = this.getName(element);
-            var value = JSON.parse(localStorage.getItem(name));
+            var value = localStorage.getItem(name);
             if (value !== null) {
+                value = JSON.parse(value);
                 if ($(element).is(':checkbox')) {
                     $(element).prop('checked', value);                    
                 } 
