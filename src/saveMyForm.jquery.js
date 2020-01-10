@@ -82,9 +82,9 @@
         loadElement: function(element) {
             var name = this.getName(element);
             var value = JSON.parse(localStorage.getItem(name));
-            if (value) {
+            if (value !== null) {
                 if ($(element).is(':checkbox')) {
-                    $(element).prop('checked', value);
+                    $(element).prop('checked', value);                    
                 } 
                 else if($(element).is(':radio')) {
                     if(value == $(element).val()) {
