@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <title>Save My Form 2020 - a jQuery Plugin - Demo</title>
-        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-        <script src="../src/saveMyForm.jquery.js"></script>
-        <script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.0.js"></script>
+        <script type="text/javascript" src="../src/saveMyForm.jquery.js"></script>
+        <script type="text/javascript" >
             $(function () {
                 $("form").saveMyForm();
             });
@@ -42,7 +41,7 @@
 
     <body>
         <h2>Save My Form 2020 - a jQuery Plugin</h2>
-        <form id="your_average_form">
+        <form id="your_average_form" method="POST" action="index.html#submitted">
             <fieldset>
                 <legend>Demo: An Average Form</legend>
                 <label>Text: <input id="i01" name="my_name" /></label><br />
@@ -99,7 +98,7 @@
             </fieldset>
             
         </form>
-        <script>
+        <script type="text/javascript" >
             $(function () {
                 $("#reset_my_form").click(function () {
                     console.log('clicked');
@@ -120,14 +119,14 @@
             });
         </script>
 
-        <form id="demo_dynamic_change">
+        <form id="demo_dynamic_change" method="POST" action="index.html#passed">
             <fieldset>
                 <legend>Demo: Dynamically Change Data</legend>
                 <label>Number:<input id="i14" name="data_one" value="1" /></label><br />
                 <input id="i15" type="button" value="Increment Number" />
             </fieldset>
         </form>
-        <script>
+        <script type="text/javascript" >
             $(function () {
                 $('#i15').click( function() {
                     var value = $('#i14').val();
@@ -137,7 +136,7 @@
             });
         </script>
 
-        <form id="html5_input_types">
+        <form id="html5_input_types" method="POST" action="index.html#failed">
             <fieldset>
                 <legend>Demo: HTML5 Input Types</legend>
                 <div class="text">
@@ -261,7 +260,7 @@
             </div>
         </div>
         
-        <script>
+        <script type="text/javascript" >
             var set_data_to = { "i01": "Test Text - (!@'`\"&amp;#000000)", "i02": "Multi Line\nText Area\n\n(!@'`\"&amp;#000000)", 
                 "i03": true, "i03b": false, "i04": true, "i05": false, "i06": false, "i04b": false, "i05b": false, "i06b": true, 
                 "i07": ["volvo", "audi"], "i08": "option_two", "i08b": "option_four", "i10": "C:\\fakepath\\autumn_vines.jpg", 
@@ -305,7 +304,6 @@
                     try {
                         var field = $('#' + i);
                         if(field.is(':radio, :checkbox')) {
-                            console.log(field.attr('name'));
                             field.prop('checked', val);
                             if ( (field.is(':radio') && val === true) || field.is(':checkbox' )) {
                                 field.change();
@@ -355,7 +353,6 @@
                     var value = field.val();
                     if (field.is(':checkbox, :radio')) {
                         value = field.prop('checked');
-                        console.log(field.attr(name));
                     }
                     var value_should_be = on_reload_data_should_be[i];
                     
@@ -383,6 +380,14 @@
                 });
                 $('#test_output').val(checkOutput);
                 set_test_result('Check field data', passed ? 'Passed' : 'Failed');
+                if (passed) {
+                    console.log("All checks passed");
+                    $('#demo_dynamic_change').submit();
+                }
+                else {
+                    console.log("Check failed");
+                    $('#html5_input_types').submit();
+                }
             }
             function get_field_values() {
                 var fieldData = {};
@@ -400,12 +405,26 @@
             }
 
             $(function () {
+                
                 $('#clear_local_storage').click(clear_local_storage);
                 $('#run_test_set_fields').click(set_field_values);
                 $('#check_test_fields').click(check_field_values);
                 $('#run_test_get_fields').click(get_field_values);
                 $('#page_ready').val('True');
             });
+
+            var pathname = window.location.href;
+            console.log(window.location.href);
+            if (pathname.indexOf('#autorun') != -1) {
+                setTimeout(clear_local_storage, 2000);
+                setTimeout(set_field_values, 3000);
+                setTimeout(function () {
+                    $('#your_average_form').submit();
+                }, 3000);
+            }
+            else if (pathname.indexOf('#submitted') != -1) {
+                setTimeout(check_field_values, 2000);
+            }
         </script>
 
     </body>
