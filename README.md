@@ -1,17 +1,24 @@
 # Save My Form 2020 - a jQuery Plugin
 
-**Save form data automatically in your website user's browser so that they can return and complete it at a later time.**
+**Save form state in the browser's localStorage.**
 
-Imagine your subscribers filling in a long feedback form or writing lots of important information on your website only to have their child shut down the web browser while they stopped to grab a cup of coffee. Not good!
+Imagine your subscribers filling in a long feedback form or writing lots of important information on your website only to have their child shut down the web browser while they stopped to grab a cup of coffee. Not good! When they re-open your site all of their precious data will be completely safe!
 
-Save My Form 2020 saves data typed into your form in their browser localStorage. When they re-open your site all of their precious data will be completely safe!
+Use this script to save form input state automatically in your website user's browser so that they can return and complete it at a later time.
 
 ## Features
 
 * Form data is saved in localStorage as it is typed, or as fields are selected or checked, allowing the user to come back at a later date to complete their form, or easily recover from a crash.
 * Easily exclude fields that have sensitive information (eg. passwords) that you don't want saved on their browser.
+* Use multiple forms on a single page
 * Saves unique field values even when the name is the same accross multiple fields (eg. form input arrays, PHP form data arrays - multiple fields having `name="field_name[]"` )
+* Input is debounced to save excessive writes
 * Handles HTML5 Input Types including date, time, URL, search, range, color and more...
+* Custom plugin options to enable integration with server-side validation
+
+## Demo
+
+[View the form demo](https://www.pauljones.co.nz/github/saveMyForm.jquery/demo/index.html)
 
 ## Usage
 
