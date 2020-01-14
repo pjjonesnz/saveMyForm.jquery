@@ -1,6 +1,6 @@
 /*!
  * Save My Form 2020 - a jQuery Plugin
- * version: 0.2
+ * version: 1.0
  * Copyright: 2020 Paul Jones
  * MIT license
  */
@@ -12,7 +12,10 @@
         defaults = {
             exclude: ':password, :hidden, :file, .disable_save',
             include: null,
+            formName: undefined,
+            loadInputs: true,
             sameNameSeparator: '___',
+            resetOnSubmit: true,
         };
 
     function saveMyForm(element, options) {
@@ -22,10 +25,28 @@
         this._name = pluginName;
         this._multipleList = {};
         this._elementList = [];
-        /**
-         * @todo Auto generate a name from the document path and form order on page if id or name not supplied
-         */
-        this._formName = $(element).attr('id');
+        var $element = $(element);
+
+        this._formName =
+            this.settings.formName !== undefined
+                ? this.settings.formName
+                : $element.attr('id') !== undefined
+                ? $element.attr('id')
+                : $element.attr('name') !== undefined
+                ? $element.attr('name')
+                : undefined;
+        if (this._formName == undefined) {
+            var formIndex = $('form').index($element);
+            if (formIndex !== -1) {
+                this._formName =
+                    window.location.pathname + '_formindex_' + formIndex;
+            } else {
+                console.log(
+                    'Unable to save form data - no id, name or index found'
+                );
+                return;
+            }
+        }
         this.init();
     }
 
@@ -38,29 +59,39 @@
                     $plugin.addElement(this);
                 });
             this.storeElementList();
+            if (this.settings.resetOnSubmit === true) {
+                $(this.element).submit(function() {
+                    $plugin.clearStorage();
+                });
+            }
         },
         addElement: function(element) {
-            if($(element).is(this.settings.exclude)) {
+            if ($(element).is(this.settings.exclude)) {
                 return;
             }
-            if(this.settings.include !== null && !$(element).is(this.settings.include)) {
+            if (
+                this.settings.include !== null &&
+                !$(element).is(this.settings.include)
+            ) {
                 return;
             }
             var $plugin = this;
             var name = this.getName(element);
             if (name) {
-                $(element).change(function(e) {
-                    $plugin.storeElement(e);
-                })
-                .keyup(
-                    debounce(function(e) {
+                $(element)
+                    .change(function(e) {
                         $plugin.storeElement(e);
-                    }, 500)
-                );
+                    })
+                    .keyup(
+                        debounce(function(e) {
+                            $plugin.storeElement(e);
+                        }, 500)
+                    );
                 if (this._elementList.indexOf(name) === -1) {
                     this._elementList.push(name);
                 } else {
-                    // If another element is found with the same name that isn't a radio group, add multiple data to differentiate
+                    // If another element is found with the same name that isn't a radio group, 
+                    // add multiple data to differentiate the field
                     if (!$(element).is(':radio')) {
                         if (!this._multipleList[name]) {
                             this._multipleList[name] = 1;
@@ -76,7 +107,9 @@
                         this._multipleList[name]++;
                     }
                 }
-                this.loadElement(element);
+                if (this.settings.loadInputs === true) {
+                    this.loadElement(element);
+                }
             }
         },
         loadElement: function(element) {
@@ -85,14 +118,12 @@
             if (value !== null) {
                 value = JSON.parse(value);
                 if ($(element).is(':checkbox')) {
-                    $(element).prop('checked', value);                    
-                } 
-                else if($(element).is(':radio')) {
-                    if(value == $(element).val()) {
-                        $(element).prop('checked',true);
+                    $(element).prop('checked', value);
+                } else if ($(element).is(':radio')) {
+                    if (value == $(element).val()) {
+                        $(element).prop('checked', true);
                     }
-                }
-                else {
+                } else {
                     $(element).val(value);
                 }
             }
@@ -110,26 +141,52 @@
             localStorage.setItem(name, JSON.stringify(value));
         },
         getElementList: function() {
-            return JSON.parse( localStorage.getItem('elementList_' + this._formName) ) || [];
+            return (
+                JSON.parse(
+                    localStorage.getItem('elementList_' + this._formName)
+                ) || []
+            );
         },
         storeElementList: function() {
-            localStorage.setItem('elementList_' + this._formName, JSON.stringify(this._elementList));
+            localStorage.setItem(
+                'elementList_' + this._formName,
+                JSON.stringify(this._elementList)
+            );
         },
         clearElementList: function() {
             localStorage.removeItem('elementList_' + this._formName);
         },
         clearStorage: function() {
-            var elements = this.getElementList();
-            $.each(elements, function(key, value) {
-                localStorage.removeItem(value);
-            });
+            try {
+                var elements = this.getElementList();
+                $.each(elements, function(key, value) {
+                    localStorage.removeItem(value);
+                });
+            } catch (err) {
+                console.log(err);
+            }
         },
         getName: function(element) {
-            if ($(element).attr('name') == undefined) {
+            var $element = $(element);
+            var elName =
+                $element.attr('id') !== undefined
+                    ? $element.attr('id')
+                    : $element.attr('name') !== undefined
+                    ? $element.attr('name')
+                    : undefined;
+            if (elName === undefined) {
                 return undefined;
             }
-            return this._formName + '_' + $(element).attr('name') + ($.data(element, 'multiple') !== undefined ? this.settings.sameNameSeparator + $.data(element, 'multiple') : '');
-        }
+            return (
+                this._formName +
+                '_' +
+                elName +
+                ($.data(element, 'multiple') !== undefined
+                    ? this.settings.sameNameSeparator +
+                      $.data(element, 'multiple')
+                    : '')
+            );
+        },
     });
 
     $.fn[pluginName] = function(methodOrOptions, args) {
@@ -157,54 +214,54 @@
 })(jQuery, window, document);
 
 // Underscore debounce function
-function debounce(func, wait, immediate){
-  var timeout, args, context, timestamp, result;
-  if (null == wait) wait = 100;
+function debounce(func, wait, immediate) {
+    var timeout, args, context, timestamp, result;
+    if (null == wait) wait = 100;
 
-  function later() {
-    var last = Date.now() - timestamp;
+    function later() {
+        var last = Date.now() - timestamp;
 
-    if (last < wait && last >= 0) {
-      timeout = setTimeout(later, wait - last);
-    } else {
-      timeout = null;
-      if (!immediate) {
-        result = func.apply(context, args);
-        context = args = null;
-      }
-    }
-  };
-
-  var debounced = function(){
-    context = this;
-    args = arguments;
-    timestamp = Date.now();
-    var callNow = immediate && !timeout;
-    if (!timeout) timeout = setTimeout(later, wait);
-    if (callNow) {
-      result = func.apply(context, args);
-      context = args = null;
+        if (last < wait && last >= 0) {
+            timeout = setTimeout(later, wait - last);
+        } else {
+            timeout = null;
+            if (!immediate) {
+                result = func.apply(context, args);
+                context = args = null;
+            }
+        }
     }
 
-    return result;
-  };
+    var debounced = function() {
+        context = this;
+        args = arguments;
+        timestamp = Date.now();
+        var callNow = immediate && !timeout;
+        if (!timeout) timeout = setTimeout(later, wait);
+        if (callNow) {
+            result = func.apply(context, args);
+            context = args = null;
+        }
 
-  debounced.clear = function() {
-    if (timeout) {
-      clearTimeout(timeout);
-      timeout = null;
-    }
-  };
-  
-  debounced.flush = function() {
-    if (timeout) {
-      result = func.apply(context, args);
-      context = args = null;
-      
-      clearTimeout(timeout);
-      timeout = null;
-    }
-  };
+        return result;
+    };
 
-  return debounced;
-};
+    debounced.clear = function() {
+        if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+        }
+    };
+
+    debounced.flush = function() {
+        if (timeout) {
+            result = func.apply(context, args);
+            context = args = null;
+
+            clearTimeout(timeout);
+            timeout = null;
+        }
+    };
+
+    return debounced;
+}
