@@ -17,7 +17,7 @@
             addPathLength: -255,
             loadInputs: true,
             sameNameSeparator: '___',
-            resetOnSubmit: true,
+            resetOnSubmit: true
         };
 
     function saveMyForm(element, options) {
@@ -50,7 +50,8 @@
             }
         }
         if (this.settings.addPathToName === true) {
-            this._formName = this._formName +
+            this._formName =
+                this._formName +
                 '___' +
                 window.location.pathname.slice(this.settings.addPathLength);
         }
@@ -97,7 +98,7 @@
                 if (this._elementList.indexOf(name) === -1) {
                     this._elementList.push(name);
                 } else {
-                    // If another element is found with the same name that isn't a radio group, 
+                    // If another element is found with the same name that isn't a radio group,
                     // add multiple data to differentiate the field
                     if (!$(element).is(':radio')) {
                         if (!this._multipleList[name]) {
@@ -193,7 +194,7 @@
                       $.data(element, 'multiple')
                     : '')
             );
-        },
+        }
     });
 
     $.fn[pluginName] = function(methodOrOptions, args) {

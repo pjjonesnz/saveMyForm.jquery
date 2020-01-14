@@ -4,11 +4,15 @@
         <title>Save My Form 2020 - a jQuery Plugin - Demo</title>
         <script
             type="text/javascript"
-            src="https://code.jquery.com/jquery-1.12.4.js"
+            src="//code.jquery.com/jquery-1.12.3.js"
         ></script>
         <script
             type="text/javascript"
             src="../src/saveMyForm.jquery.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../src/ie8.support.js"
         ></script>
         <script type="text/javascript">
             $(function() {
@@ -595,7 +599,7 @@
                 i40: 'Text 3',
                 i41: 'PHP Text 1',
                 i42: 'PHP Text 2',
-                i43: 'PHP Text 3 (!@\'`"&amp;#000000)',
+                i43: 'PHP Text 3 (!@\'`"&amp;#000000)'
             };
             var on_reload_data_should_be = {
                 i01: 'Test Text - (!@\'`"&amp;#000000)',
@@ -642,7 +646,7 @@
                 i40: 'Text 3',
                 i41: 'PHP Text 1',
                 i42: 'PHP Text 2',
-                i43: 'PHP Text 3 (!@\'`"&amp;#000000)',
+                i43: 'PHP Text 3 (!@\'`"&amp;#000000)'
             };
             function clear_local_storage() {
                 try {

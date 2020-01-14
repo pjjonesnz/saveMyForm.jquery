@@ -137,7 +137,17 @@ $("#form_field_id").val('New Value').change();
 
 ### Browsers
 
-Coming soon...
+Browsers that handle localStorage [See CanIUse](https://caniuse.com/#search=localStorage)
+
+#### Tested on:
+IE 8+
+Firefox 3.6+
+Chrome 15+
+Opera 15+
+Safari 4+
+Edge 15+
+
+Thanks to https://browserstack.com for their fantastic testing tools!
 
 ## License
 
