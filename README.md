@@ -65,6 +65,8 @@ $("#form_id").saveMyForm({
 	exclude: ':password, :hidden, :file, .disable_save',
 	include: null,
 	formName: undefined,
+	addPathToName: false,
+	addPathLength: -255,
 	loadInputs: true,
 	resetOnSubmit: true,
 	sameNameSeparator: '___',
@@ -75,6 +77,8 @@ The available options are:
 * `exclude` – jQuery selectors to define form fields that you don't want to save data for. See: https://api.jquery.com/category/selectors/ for more about jQuery selectors
 * `include` - jQuery selectors to define form fields that you DO want to save data for. 
 * `formName` - the name to use when saving the form. Leave as undefined to automatically generate name.
+* `addPathToName` - add the page path to the name of the form - to individually handle forms on different pages that have the same form name (whether the name is automatically or manually specified).
+* `addPathLength`- the length of the path to add to the form name,
 * `loadInputs` - reload input data from localStorage when page is re-loaded. 
 * `resetOnSubmit` - delete form data from localStorage when the form is submit 
 * `sameNameSeparator` - the separator to be used between the field name and an index number in the localStorage key when multiple form fields have the same name.
@@ -97,7 +101,15 @@ Leave this equal to `null` to include everything that is not excluded by the exc
 
 #### `formName: undefined`
 
-If undefined it is automatically set to the form id, form name or the page's pathname with an index of the forms location on the page (to handle multiple forms on one page), in that order.
+If undefined it is automatically set to the form id, form name or the page's pathname with an index of the forms location on the page (to handle multiple forms on one page), in that order. Set to a string to give the form a specific name.
+
+#### `addPathToName: false`
+
+If set to true this adds the website page's pathname to the name of the form to distinguish it from other forms with the same id or name on your website. Note: If you handle the validation server-side and you are sibmitting to a different url then set this to false and use the forms id, name or formName option to differentiate it.
+
+#### `addPathLength: -255`
+
+The length of the pathname to add to the formName when distinguishing it from froms on other pages of your website. Setting to a negative value is preferred so that it uses the last part of the pathname rather than the first.
 
 #### `loadInputs: true`
 

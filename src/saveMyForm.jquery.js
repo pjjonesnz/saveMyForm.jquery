@@ -13,6 +13,8 @@
             exclude: ':password, :hidden, :file, .disable_save',
             include: null,
             formName: undefined,
+            addPathToName: false,
+            addPathLength: -255,
             loadInputs: true,
             sameNameSeparator: '___',
             resetOnSubmit: true,
@@ -46,6 +48,11 @@
                 );
                 return;
             }
+        }
+        if (this.settings.addPathToName === true) {
+            this._formName = this._formName +
+                '___' +
+                window.location.pathname.slice(this.settings.addPathLength);
         }
         this.init();
     }

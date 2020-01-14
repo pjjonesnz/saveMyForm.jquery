@@ -8,7 +8,7 @@
         ></script>
         <script
             type="text/javascript"
-            src="../src/saveMyForm.jquery.min.js"
+            src="../src/saveMyForm.jquery.js"
         ></script>
         <script type="text/javascript">
             $(function() {
@@ -507,7 +507,7 @@
                         <input
                             type="button"
                             id="clear_local_storage"
-                            value="Clear Local Storage"
+                            value="Clear All Local Storage"
                         />
                     </li>
                     <li>
@@ -803,7 +803,6 @@
             });
 
             var pathname = window.location.href;
-            console.log(window.location.href);
             if (pathname.indexOf('#autorun') != -1) {
                 setTimeout(clear_local_storage, 2000);
                 setTimeout(set_field_values, 3000);
