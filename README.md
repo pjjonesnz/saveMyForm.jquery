@@ -45,9 +45,7 @@ $(function () {
 
 ## Note
 
-For this scipt to work correctly, please note the following:
-1. All forms need to have an id attribute
-2. All form fields need to have a name
+For this scipt to work correctly the form input to be saved needs to have its id and/or name set. Inputs without this will be skipped.
 
 ## API
 
@@ -59,24 +57,48 @@ You can pass options into Save My Form when you initialize the plugin. The defau
 $("#form_id").saveMyForm({
 	exclude: ':password, :hidden, :file, .disable_save',
 	include: null,
+	formName: undefined,
+	loadInputs: true,
+	resetOnSubmit: true,
 	sameNameSeparator: '___',
 });
 ```
 
 The available options are:
 * `exclude` – jQuery selectors to define form fields that you don't want to save data for. See: https://api.jquery.com/category/selectors/ for more about jQuery selectors
-* `include` - jQuery selectors to define form fields that you DO want to save data for. **NOTE:** Leave this equal to `null` to include everything that is not excluded by the exclude option
-* `sameNameSeparator` - separator to be used between the field name and an index number - when multiple form fields have the same name
+* `include` - jQuery selectors to define form fields that you DO want to save data for. 
+* `formName` - the name to use when saving the form. Leave as undefined to automatically generate name.
+* `loadInputs` - reload input data from localStorage when page is re-loaded. 
+* `resetOnSubmit` - delete form data from localStorage when the form is submit 
+* `sameNameSeparator` - the separator to be used between the field name and an index number in the localStorage key when multiple form fields have the same name.
 
-### Defaults and what they achieve
+### Notes about the script options
 
-The default settings above means that password, hidden and file-upload type fields aren't saved to the browser (of course all this information will be submitted to your website - it just isn't stored on the local user's browser if they shut it down). 
+#### `exclude: ':password, :hidden, :file, .disable_save'`
+
+The default settings in the 'exclude' option means that password, hidden and file-upload type fields aren't saved to the browser (of course all this information will be submitted to your website - it just isn't stored in the localStorage of the user's browser if they shut it down). 
 
 The default selector class `disable_save` also causes form fields with that class not to be saved to the browser. To achieve this just add `disable_save` to the field like the following example:
 
 ``` html
 <input type="text" name="my_field" class="disable_save" />
 ```
+
+#### `include: null`
+
+Leave this equal to `null` to include everything that is not excluded by the exclude option.
+
+#### `formName: undefined`
+
+If undefined it is automatically set to the form id, form name or the page's pathname with an index of the forms location on the page (to handle multiple forms on one page), in that order.
+
+#### `loadInputs: true`
+
+True by default to allow the form to automatically reload form data if it is present in localStorage. Set this to false if the form data is being re-populated by a server-side script after the form has been submitted. (Used in combination with the 'resetOnSubmit' option.) If set to false it will update any futher changes to the data in a field but won't initially load the data from localStorage.
+
+#### `resetOnSubmit: true`
+
+Resets the localStorage for that form when the form is submit. If form submission is cancelled by a subsequent script (eg. a form validation script), or if a server-side script is used to validate the form and the page is reloaded as it is invalid, then this may cause the data in localStorage to be cleared even though the form isn't accepted for submission. If this is the case then you may prefer to set this option to false and add a custom script to reset localStorage when the server redirects to your 'Submission successful' page.
 
 ### Methods
 
@@ -100,7 +122,7 @@ Coming soon...
 
 ## License
 
-Distributed under [MIT license](https://github.com/kugaevsky/jquery-phoenix/blob/master/LICENSE)
+Distributed under [MIT license](https://github.com/pjjonesnz/saveMyForm.jquery/blob/master/LICENSE.md)
 
 ## Contributing
 
