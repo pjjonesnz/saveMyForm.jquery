@@ -2,28 +2,42 @@
 <html>
     <head>
         <title>Save My Form 2020 - a jQuery Plugin - Demo</title>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.0.js"></script>
-        <script type="text/javascript" src="../src/saveMyForm.jquery.js"></script>
-        <script type="text/javascript" >
-            $(function () {
-                $("form").saveMyForm();
+        <script
+            type="text/javascript"
+            src="https://code.jquery.com/jquery-1.12.4.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="../src/saveMyForm.jquery.js"
+        ></script>
+        <script type="text/javascript">
+            $(function() {
+                $('form').saveMyForm();
             });
         </script>
         <style>
             fieldset {
                 margin: 20px;
             }
-            input, select {
+            input,
+            select {
                 margin-bottom: 10px;
             }
             #test_box {
-                overflow: scroll; width: 400px; height: 70%; position: fixed; right: 10px; top: 2%; 
-                background: white; border: 1px solid black; max-width: 40%;
+                overflow: scroll;
+                width: 400px;
+                height: 70%;
+                position: fixed;
+                right: 10px;
+                top: 2%;
+                background: white;
+                border: 1px solid black;
+                max-width: 40%;
             }
             @media screen and (max-width: 500px) {
                 #test_box {
                     position: static;
-                    height:auto;
+                    height: auto;
                     width: 100%;
                     max-width: 100%;
                 }
@@ -41,97 +55,212 @@
 
     <body>
         <h2>Save My Form 2020 - a jQuery Plugin</h2>
-        <form id="your_average_form" method="POST" action="index.html#submitted">
+        <form
+            id="your_average_form"
+            method="POST"
+            action="index.html#submitted"
+        >
             <fieldset>
                 <legend>Demo: An Average Form</legend>
-                <label>Text: <input id="i01" name="my_name" /></label><br />
-                <label>Text Area:<br /><textarea id="i02" name="my_textarea" cols="80" rows="5"></textarea></label><br />
-                <label>Initially Unchecked: <input id="i03" type="checkbox" name="my_unchecked_checkbox" /></label><br />
-                <label>Initally Checked: <input id="i03b" type="checkbox" name="my_checked_checkbox" checked/></label><br />
+                <label>Text: <input id="i01" name="my_name"/></label><br />
+                <label
+                    >Text Area:<br /><textarea
+                        id="i02"
+                        name="my_textarea"
+                        cols="80"
+                        rows="5"
+                    ></textarea></label
+                ><br />
+                <label
+                    >Initially Unchecked:
+                    <input
+                        id="i03"
+                        type="checkbox"
+                        name="my_unchecked_checkbox"/></label
+                ><br />
+                <label
+                    >Initally Checked:
+                    <input
+                        id="i03b"
+                        type="checkbox"
+                        name="my_checked_checkbox"
+                        checked/></label
+                ><br />
                 <label>Radio Group 1 (Radio 3 initially selected)</label><br />
-                <input id="i04" type="radio" name="radio_group1" value="Radio 1"> Radio 1<br />
-                <input id="i05" type="radio" name="radio_group1" value="Radio 2"> Radio 2<br />
-                <input id="i06" type="radio" name="radio_group1" value="Radio 3" checked> Radio 3<br />
+                <input
+                    id="i04"
+                    type="radio"
+                    name="radio_group1"
+                    value="Radio 1"
+                />
+                Radio 1<br />
+                <input
+                    id="i05"
+                    type="radio"
+                    name="radio_group1"
+                    value="Radio 2"
+                />
+                Radio 2<br />
+                <input
+                    id="i06"
+                    type="radio"
+                    name="radio_group1"
+                    value="Radio 3"
+                    checked
+                />
+                Radio 3<br />
                 <label>Radio Group 2 (none initially selected)</label><br />
-                <input id="i04b" type="radio" name="radio_group2" value="Radio 1"> Radio 1<br />
-                <input id="i05b" type="radio" name="radio_group2" value="Radio 2"> Radio 2<br />
-                <input id="i06b" type="radio" name="radio_group2" value="Radio 3"> Radio 3<br />
-                <label>Multi Select (Saab initially selected): <br />
-                <select id="i07" name="multi_select" multiple size="8">
-                    <optgroup label="Swedish Cars">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab" selected>Saab</option>
-                    </optgroup>
-                    <optgroup label="German Cars">
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </optgroup>
-                </select></label><br />
-                <input type="button" id="deselect_all_options" value="Deselect all options in above multi-select" /><br />
-                <label>Select: <select id="i08" name="my_select">
-                    <option value="">--- SELECT AN OPTION ---</option>
-                    <option value="option_one">Option 1</option>
-                    <option value="option_two">Option 2</option>
-                    <option value="option_three">Option 3</option>
-                    <option value="option_four">Option 4</option>
-                    <option value="option_five">Option 5</option>
-                </select></label><br />
-                <label>Select (option 3 initially selected): <select id="i08b" name="my_select2">
-                    <option value="">--- SELECT AN OPTION ---</option>
-                    <option value="option_one">Option 1</option>
-                    <option value="option_two">Option 2</option>
-                    <option value="option_three" selected>Option 3</option>
-                    <option value="option_four">Option 4</option>
-                    <option value="option_five">Option 5</option>
-                </select></label><br />
-                <input type="button" id="reset_my_form" value="RESET SAVED DATA FOR ABOVE FORM" />
+                <input
+                    id="i04b"
+                    type="radio"
+                    name="radio_group2"
+                    value="Radio 1"
+                />
+                Radio 1<br />
+                <input
+                    id="i05b"
+                    type="radio"
+                    name="radio_group2"
+                    value="Radio 2"
+                />
+                Radio 2<br />
+                <input
+                    id="i06b"
+                    type="radio"
+                    name="radio_group2"
+                    value="Radio 3"
+                />
+                Radio 3<br />
+                <label
+                    >Multi Select (Saab initially selected): <br />
+                    <select id="i07" name="multi_select" multiple size="8">
+                        <optgroup label="Swedish Cars">
+                            <option value="volvo">Volvo</option>
+                            <option value="saab" selected>Saab</option>
+                        </optgroup>
+                        <optgroup label="German Cars">
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </optgroup>
+                    </select></label
+                ><br />
+                <input
+                    type="button"
+                    id="deselect_all_options"
+                    value="Deselect all options in above multi-select"
+                /><br />
+                <label
+                    >Select:
+                    <select id="i08" name="my_select">
+                        <option value="">--- SELECT AN OPTION ---</option>
+                        <option value="option_one">Option 1</option>
+                        <option value="option_two">Option 2</option>
+                        <option value="option_three">Option 3</option>
+                        <option value="option_four">Option 4</option>
+                        <option value="option_five">Option 5</option>
+                    </select></label
+                ><br />
+                <label
+                    >Select (option 3 initially selected):
+                    <select id="i08b" name="my_select2">
+                        <option value="">--- SELECT AN OPTION ---</option>
+                        <option value="option_one">Option 1</option>
+                        <option value="option_two">Option 2</option>
+                        <option value="option_three" selected>Option 3</option>
+                        <option value="option_four">Option 4</option>
+                        <option value="option_five">Option 5</option>
+                    </select></label
+                ><br />
+                <input
+                    type="button"
+                    id="reset_my_form"
+                    value="RESET SAVED DATA FOR ABOVE FORM"
+                />
+
+                <fieldset>
+                    <legend>
+                        These fields are excluded from saving to localStorage by
+                        default
+                    </legend>
+                    <label
+                        >File:
+                        <input id="i10" type="file" name="my_file"/></label
+                    ><br />
+                    <label
+                        >Password:
+                        <input
+                            id="i11"
+                            type="password"
+                            name="my_password"/></label
+                    ><br />
+                    <label
+                        >Hidden:
+                        <input
+                            id="i12"
+                            type="hidden"
+                            name="my_hidden_field"
+                            value="0"/>
+                        <input type="button" id="i12b" value="Show Value"/>
+                        <input
+                            type="button"
+                            id="i12c"
+                            value="Set Value"/></label
+                    ><br />
+                    <label
+                        >Exclude this item by classname:
+                        <input
+                            id="i13"
+                            type="text"
+                            name="exclude_this"
+                            class="disable_save"/></label
+                    ><br />
+                </fieldset>
+                <input type="submit" value="Submit Form" />
             </fieldset>
-        
-            <fieldset>
-                <legend>Demo: These fields are excluded from saving to localStorage by default</legend>
-                <label>File: <input id="i10" type="file" name="my_file" /></label><br />
-                <label>Password: <input id="i11" type="password" name="my_password" /></label><br />
-                <label>Hidden: <input id="i12" type="hidden" name="my_hidden_field" value="0">
-                    <input type="button" id="i12b" value="Show Value" /> 
-                    <input type="button" id="i12c" value="Set Value" /></label><br />
-                <label>Exclude this item by classname: <input id="i13" type="text" name="exclude_this" class="disable_save" /></label><br />
-            </fieldset>
-            
         </form>
-        <script type="text/javascript" >
-            $(function () {
-                $("#reset_my_form").click(function () {
+        <script type="text/javascript">
+            $(function() {
+                $('#reset_my_form').click(function() {
                     console.log('clicked');
-                    $("#your_average_form").saveMyForm('clearStorage');
+                    $('#your_average_form').saveMyForm('clearStorage');
                 });
-                $("#i12b").click(function () {
-                    alert('Hidden field value: ' + $("#i12").val());
-                })
-                $("#i12c").click(function () {
-                    var hiddenvalue = $("#i12").val();
+                $('#i12b').click(function() {
+                    alert('Hidden field value: ' + $('#i12').val());
+                });
+                $('#i12c').click(function() {
+                    var hiddenvalue = $('#i12').val();
                     hiddenvalue++;
-                    $("#i12").val(hiddenvalue).change();
-                })
+                    $('#i12')
+                        .val(hiddenvalue)
+                        .change();
+                });
                 $('#deselect_all_options').click(function() {
-                    $('#i07 option').removeAttr("selected");
+                    $('#i07 option').removeAttr('selected');
                     $('#i07').change();
                 });
             });
         </script>
 
-        <form id="demo_dynamic_change" method="POST" action="index.html#passed">
+        <form
+            name="demo_dynamic_change"
+            method="POST"
+            action="index.html#passed"
+        >
             <fieldset>
                 <legend>Demo: Dynamically Change Data</legend>
-                <label>Number:<input id="i14" name="data_one" value="1" /></label><br />
+                <label>Number:<input id="i14" name="data_one" value="1"/></label
+                ><br />
                 <input id="i15" type="button" value="Increment Number" />
             </fieldset>
         </form>
-        <script type="text/javascript" >
-            $(function () {
-                $('#i15').click( function() {
+        <script type="text/javascript">
+            $(function() {
+                $('#i15').click(function() {
                     var value = $('#i14').val();
                     value++;
-                    $('#i14').val(value).change();
+                    $('#i14')
+                        .val(value)
+                        .change();
                 });
             });
         </script>
@@ -141,102 +270,230 @@
                 <legend>Demo: HTML5 Input Types</legend>
                 <div class="text">
                     <label for="type-text">Text (text)</label>
-                    <input id="i16" type="text" name="type-text" id="type-text">
+                    <input
+                        id="i16"
+                        type="text"
+                        name="type-text"
+                        id="type-text"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-search">Search (search)</label>
-                    <input id="i17" type="search" name="type-search" id="type-search">
+                    <input
+                        id="i17"
+                        type="search"
+                        name="type-search"
+                        id="type-search"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-tel">Telephone (tel)</label>
-                    <input id="i18" type="tel" name="type-tel" id="type-tel">
+                    <input id="i18" type="tel" name="type-tel" id="type-tel" />
                 </div>
                 <div class="text">
                     <label for="type-url">URL (url)</label>
-                    <input id="i19" type="url" name="type-url" id="type-url">
+                    <input id="i19" type="url" name="type-url" id="type-url" />
                 </div>
                 <div class="text">
                     <label for="type-email">E-mail (email)</label>
-                    <input id="i20" type="email" name="type-email" id="type-email">
+                    <input
+                        id="i20"
+                        type="email"
+                        name="type-email"
+                        id="type-email"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-date">Date (date)</label>
-                    <input id="i22" type="date" name="type-date" id="type-date">
+                    <input
+                        id="i22"
+                        type="date"
+                        name="type-date"
+                        id="type-date"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-date">Date (date)</label>
-                    <input id="i23" type="date" name="type-date" id="type-date">
+                    <input
+                        id="i23"
+                        type="date"
+                        name="type-date"
+                        id="type-date"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-date">Date (date)</label>
-                    <input id="i24" type="date" name="type-date" id="type-date">
+                    <input
+                        id="i24"
+                        type="date"
+                        name="type-date"
+                        id="type-date"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-month">Month (month)</label>
-                    <input id="i25" type="month" name="type-month" id="type-month">
+                    <input
+                        id="i25"
+                        type="month"
+                        name="type-month"
+                        id="type-month"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-week">Week (week)</label>
-                    <input id="i26" type="week" name="type-week" id="type-week">
+                    <input
+                        id="i26"
+                        type="week"
+                        name="type-week"
+                        id="type-week"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-time">Time (time)</label>
-                    <input id="i27" type="time" name="type-time" id="type-time">
+                    <input
+                        id="i27"
+                        type="time"
+                        name="type-time"
+                        id="type-time"
+                    />
                 </div>
                 <div class="text">
-                    <label for="type-datetime-local">Local Date and Time (datetime-local)</label>
-                    <input id="i28" type="datetime-local" name="type-datetime-local" id="type-datetime-local">
+                    <label for="type-datetime-local"
+                        >Local Date and Time (datetime-local)</label
+                    >
+                    <input
+                        id="i28"
+                        type="datetime-local"
+                        name="type-datetime-local"
+                        id="type-datetime-local"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-number">Number (number)</label>
-                    <input id="i29" type="number" name="type-number" id="type-number" min="0" max="20">
+                    <input
+                        id="i29"
+                        type="number"
+                        name="type-number"
+                        id="type-number"
+                        min="0"
+                        max="20"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-range">Range (range)</label>
-                    <input id="i30" type="range" name="type-range" id="type-range" min="0" max="100">
+                    <input
+                        id="i30"
+                        type="range"
+                        name="type-range"
+                        id="type-range"
+                        min="0"
+                        max="100"
+                    />
                 </div>
                 <div class="text">
                     <label for="type-color">Colour (color)</label>
-                    <input id="i31" type="color" name="type-color" id="type-color">
+                    <input
+                        id="i31"
+                        type="color"
+                        name="type-color"
+                        id="type-color"
+                    />
                 </div>
+                <input type="submit" value="Submit Form" />
             </fieldset>
         </form>
 
         <form action="#" method="post" class="demoForm" name="demoForm">
-        
             <fieldset>
                 <legend>Demo: Checkboxes Sharing the Same Name</legend>
-        
-                <p>Favourite activities - select all that apply (Biking and Swimming initially checked)</p>
-        
+
                 <p>
-                    <label><input id="i32" type="checkbox" name="sports[]" value="Walking" />Walking</label>
-                    <label><input id="i33" type="checkbox" name="sports[]" value="Running" />Running</label>
-                    <label><input id="i34" type="checkbox" name="sports[]" value="Biking" checked />Biking</label>
-                    <label><input id="i35" type="checkbox" name="sports[]" value="Swimming" checked />Swimming</label>
-                    <label><input id="i36" type="checkbox" name="sports[]" value="Rubgy" />Rubgy</label>
-                    <label><input id="i37" type="checkbox" name="sports[]" value="Football" />Football</label>
+                    Favourite activities - select all that apply (Biking and
+                    Swimming initially checked)
                 </p>
-        
+
+                <p>
+                    <label
+                        ><input
+                            id="i32"
+                            type="checkbox"
+                            name="sports[]"
+                            value="Walking"
+                        />Walking</label
+                    >
+                    <label
+                        ><input
+                            id="i33"
+                            type="checkbox"
+                            name="sports[]"
+                            value="Running"
+                        />Running</label
+                    >
+                    <label
+                        ><input
+                            id="i34"
+                            type="checkbox"
+                            name="sports[]"
+                            value="Biking"
+                            checked
+                        />Biking</label
+                    >
+                    <label
+                        ><input
+                            id="i35"
+                            type="checkbox"
+                            name="sports[]"
+                            value="Swimming"
+                            checked
+                        />Swimming</label
+                    >
+                    <label
+                        ><input
+                            id="i36"
+                            type="checkbox"
+                            name="sports[]"
+                            value="Rubgy"
+                        />Rubgy</label
+                    >
+                    <label
+                        ><input
+                            id="i37"
+                            type="checkbox"
+                            name="sports[]"
+                            value="Football"
+                        />Football</label
+                    >
+                </p>
+                <input type="submit" value="Submit Form" />
             </fieldset>
-        
         </form>
 
         <form name="demo_same_name_1">
             <fieldset>
                 <legend>Demo: Input Fields Sharing the Same Name</legend>
-            <label>Text 1:<input id="i38" name="same_text" /></label><br />
-            <label>Text 2:<input id="i39" name="same_text" value="Value Set" /> (initally set to 'Value Set')</label><br />
-            <label>Text 3:<input id="i40" name="same_text" /></label><br />
+                <label>Text 1:<input id="i38" name="same_text"/></label><br />
+                <label
+                    >Text 2:<input
+                        id="i39"
+                        name="same_text"
+                        value="Value Set"
+                    />
+                    (initally set to 'Value Set')</label
+                ><br />
+                <label>Text 3:<input id="i40" name="same_text"/></label><br />
+                <input type="submit" value="Submit Form" />
             </fieldset>
         </form>
 
-        <form name="demo_same_name_2">
+        <form>
             <fieldset>
-                <legend>Demo: PHP Style Input fields Sharing the Same Name</legend>
-                <label>Text 1:<input id="i41" name="same_text[]" /></label><br />
-                <label>Text 2:<input id="i42" name="same_text[]" /></label><br />
-                <label>Text 3:<input id="i43" name="same_text[]" /></label><br />
+                <legend>
+                    Demo: PHP Style Input fields Sharing the Same Name
+                </legend>
+                <label>Text 1:<input id="i41" name="same_text[]"/></label><br />
+                <label>Text 2:<input id="i42" name="same_text[]"/></label><br />
+                <label>Text 3:<input id="i43" name="same_text[]"/></label><br />
+                <input type="submit" value="Submit Form" />
             </fieldset>
         </form>
 
@@ -246,100 +503,215 @@
             </div>
             <div style="padding: 20px;">
                 <ol>
-                <li><input type="button" id="clear_local_storage" value="Clear Local Storage" /></li>
-                <li><input type="button" id="run_test_set_fields" value="Set All Fields" /></li>
-                <li>Refresh browser</li>
-                <li><input type="button" id="check_test_fields" value="Check Field Data After Reload" /></li>
+                    <li>
+                        <input
+                            type="button"
+                            id="clear_local_storage"
+                            value="Clear Local Storage"
+                        />
+                    </li>
+                    <li>
+                        <input
+                            type="button"
+                            id="run_test_set_fields"
+                            value="Set All Fields"
+                        />
+                    </li>
+                    <li>Refresh browser</li>
+                    <li>
+                        <input
+                            type="button"
+                            id="check_test_fields"
+                            value="Check Field Data After Reload"
+                        />
+                    </li>
                 </ol>
-                <label>Test Run: <input type="text" id="test_run"></label><br />
-                <label>Test Result: <input type="text" id="test_result"></label><br />
-                <label>Script Output:<br />
-                    <textarea style="width: 100%; height: 300px;" id="test_output"></textarea></label><br />
-                <input type="button" id="run_test_get_fields" value="Get Field Data" /><br />
-                <label>Page ready for test: <input id="page_ready" value="False" /></label><br />
+                <label>Test Run: <input type="text" id="test_run"/></label
+                ><br />
+                <label>Test Result: <input type="text" id="test_result"/></label
+                ><br />
+                <label
+                    >Script Output:<br />
+                    <textarea
+                        style="width: 100%; height: 300px;"
+                        id="test_output"
+                    ></textarea></label
+                ><br />
+                <input
+                    type="button"
+                    id="run_test_get_fields"
+                    value="Get Field Data"
+                /><br />
+                <label
+                    >Page ready for test:
+                    <input id="page_ready" value="False"/></label
+                ><br />
             </div>
         </div>
-        
-        <script type="text/javascript" >
-            var set_data_to = { "i01": "Test Text - (!@'`\"&amp;#000000)", "i02": "Multi Line\nText Area\n\n(!@'`\"&amp;#000000)", 
-                "i03": true, "i03b": false, "i04": true, "i05": false, "i06": false, "i04b": false, "i05b": false, "i06b": true, 
-                "i07": ["volvo", "audi"], "i08": "option_two", "i08b": "option_four", "i10": "C:\\fakepath\\autumn_vines.jpg", 
-                "i11": "abcde12345", "i12": "4", "i13": "Exclude this item", "i14": "4", 
-                "i16": "Text (!@'`\"&amp;#000000)", "i17": "Search (!@'`\"&amp;#000000)", "i18": "12345678", 
-                "i19": "https://www.google.com", "i20": "email@domain.com", "i22": "2020-01-10", "i23": "2020-01-11", 
-                "i24": "2020-01-12", "i25": "2020-01", "i26": "2020-W13", "i27": "15:10", "i28": "2020-01-10T15:15", "i29": "6", 
-                "i30": "79", "i31": "#008000", "i32": false, "i33": true, "i34": false, "i35": true, "i36": true, "i37": false, 
-                "i38": "Text 1 (!@'`\"&amp;#000000)", "i39": "Text 2", "i40": "Text 3", "i41": "PHP Text 1", "i42": "PHP Text 2", 
-                "i43": "PHP Text 3 (!@'`\"&amp;#000000)" };
-            var on_reload_data_should_be = { "i01": "Test Text - (!@'`\"&amp;#000000)", "i02": "Multi Line\nText Area\n\n(!@'`\"&amp;#000000)", 
-                "i03": true, "i03b": false, "i04": true, "i05": false, "i06": false, "i04b": false, "i05b": false, "i06b": true, 
-                "i07": ["volvo", "audi"], "i08": "option_two", "i08b": "option_four", "i10": "", 
-                "i11": "", "i12": "0", "i13": "", "i14": "4", 
-                "i16": "Text (!@'`\"&amp;#000000)", "i17": "Search (!@'`\"&amp;#000000)", "i18": "12345678", 
-                "i19": "https://www.google.com", "i20": "email@domain.com", "i22": "2020-01-10", "i23": "2020-01-11", 
-                "i24": "2020-01-12", "i25": "2020-01", "i26": "2020-W13", "i27": "15:10", "i28": "2020-01-10T15:15", "i29": "6", 
-                "i30": "79", "i31": "#008000", "i32": false, "i33": true, "i34": false, "i35": true, "i36": true, "i37": false, 
-                "i38": "Text 1 (!@'`\"&amp;#000000)", "i39": "Text 2", "i40": "Text 3", "i41": "PHP Text 1", "i42": "PHP Text 2", 
-                "i43": "PHP Text 3 (!@'`\"&amp;#000000)" };
+
+        <script type="text/javascript">
+            var set_data_to = {
+                i01: 'Test Text - (!@\'`"&amp;#000000)',
+                i02: 'Multi Line\nText Area\n\n(!@\'`"&amp;#000000)',
+                i03: true,
+                i03b: false,
+                i04: true,
+                i05: false,
+                i06: false,
+                i04b: false,
+                i05b: false,
+                i06b: true,
+                i07: ['volvo', 'audi'],
+                i08: 'option_two',
+                i08b: 'option_four',
+                i10: 'C:\\fakepath\\autumn_vines.jpg',
+                i11: 'abcde12345',
+                i12: '4',
+                i13: 'Exclude this item',
+                i14: '4',
+                i16: 'Text (!@\'`"&amp;#000000)',
+                i17: 'Search (!@\'`"&amp;#000000)',
+                i18: '12345678',
+                i19: 'https://www.google.com',
+                i20: 'email@domain.com',
+                i22: '2020-01-10',
+                i23: '2020-01-11',
+                i24: '2020-01-12',
+                i25: '2020-01',
+                i26: '2020-W13',
+                i27: '15:10',
+                i28: '2020-01-10T15:15',
+                i29: '6',
+                i30: '79',
+                i31: '#008000',
+                i32: false,
+                i33: true,
+                i34: false,
+                i35: true,
+                i36: true,
+                i37: false,
+                i38: 'Text 1 (!@\'`"&amp;#000000)',
+                i39: 'Text 2',
+                i40: 'Text 3',
+                i41: 'PHP Text 1',
+                i42: 'PHP Text 2',
+                i43: 'PHP Text 3 (!@\'`"&amp;#000000)',
+            };
+            var on_reload_data_should_be = {
+                i01: 'Test Text - (!@\'`"&amp;#000000)',
+                i02: 'Multi Line\nText Area\n\n(!@\'`"&amp;#000000)',
+                i03: true,
+                i03b: false,
+                i04: true,
+                i05: false,
+                i06: false,
+                i04b: false,
+                i05b: false,
+                i06b: true,
+                i07: ['volvo', 'audi'],
+                i08: 'option_two',
+                i08b: 'option_four',
+                i10: '',
+                i11: '',
+                i12: '0',
+                i13: '',
+                i14: '4',
+                i16: 'Text (!@\'`"&amp;#000000)',
+                i17: 'Search (!@\'`"&amp;#000000)',
+                i18: '12345678',
+                i19: 'https://www.google.com',
+                i20: 'email@domain.com',
+                i22: '2020-01-10',
+                i23: '2020-01-11',
+                i24: '2020-01-12',
+                i25: '2020-01',
+                i26: '2020-W13',
+                i27: '15:10',
+                i28: '2020-01-10T15:15',
+                i29: '6',
+                i30: '79',
+                i31: '#008000',
+                i32: false,
+                i33: true,
+                i34: false,
+                i35: true,
+                i36: true,
+                i37: false,
+                i38: 'Text 1 (!@\'`"&amp;#000000)',
+                i39: 'Text 2',
+                i40: 'Text 3',
+                i41: 'PHP Text 1',
+                i42: 'PHP Text 2',
+                i43: 'PHP Text 3 (!@\'`"&amp;#000000)',
+            };
             function clear_local_storage() {
                 try {
                     localStorage.clear();
-                    $('#test_output').val("Local storage cleared");
+                    $('#test_output').val('Local storage cleared');
                     set_test_result('Clear Storage', 'Passed');
-                }
-                catch(err) {
-                    $('#test_output').val("Error: " + err);
+                } catch (err) {
+                    $('#test_output').val('Error: ' + err);
                     set_test_result('Clear Storage', 'Failed');
                 }
             }
-            function set_test_result( test, result ) {
+            function set_test_result(test, result) {
                 $('#test_run').val(test);
                 $('#test_result').val(result);
-                $('#test_result').attr('class', result == 'Passed' ? 'passed' : 'failed');
+                $('#test_result').attr(
+                    'class',
+                    result == 'Passed' ? 'passed' : 'failed'
+                );
             }
             function set_field_values() {
-                var summary = "Fields Set\n\nThe following error is expected to be listed below: 'InvalidStateError setting field my_file'\n\nTest Output:\n\n";
+                var summary =
+                    "Fields Set\n\nThe following error is expected to be listed below: 'InvalidStateError setting field my_file'\n\nTest Output:\n\n";
                 var errorText = '';
-                jQuery.each(set_data_to, function (i, val) {
+                jQuery.each(set_data_to, function(i, val) {
                     try {
                         var field = $('#' + i);
-                        if(field.is(':radio, :checkbox')) {
+                        if (field.is(':radio, :checkbox')) {
                             field.prop('checked', val);
-                            if ( (field.is(':radio') && val === true) || field.is(':checkbox' )) {
+                            if (
+                                (field.is(':radio') && val === true) ||
+                                field.is(':checkbox')
+                            ) {
                                 field.change();
                             }
+                        } else {
+                            $('#' + i)
+                                .val(val)
+                                .change();
                         }
-                        else {
-                            $('#' + i).val(val).change();
-                        }
-                    }
-                    catch (err) {
-                        var error = err.name + ' setting field ' + $('#' + i).attr('name') + "\n";
+                    } catch (err) {
+                        var error =
+                            err.name +
+                            ' setting field ' +
+                            $('#' + i).attr('name') +
+                            '\n';
                         errorText += error;
                         console.log(error);
                     }
                 });
                 $('#test_output').val(summary + errorText);
-                if(errorText == "InvalidStateError setting field my_file\n") {
+                if (errorText == 'InvalidStateError setting field my_file\n') {
                     set_test_result('Set Field Values', 'Passed');
-                }
-                else {
+                } else {
                     set_test_result('Set Field Values', 'Failed');
                 }
             }
-            function get_object_length( object ) {
+            function get_object_length(object) {
                 var count = 0;
                 for (i in object) {
                     count++;
                 }
                 return count;
             }
-            function check_values_equal( object1, object2 ) {
+            function check_values_equal(object1, object2) {
                 for (i in object1) {
-                    if(object2[i] == undefined) {
+                    if (object2[i] == undefined) {
                         return false;
                     }
-                    if(object1[i] != object2[i]) {
+                    if (object1[i] != object2[i]) {
                         return false;
                     }
                 }
@@ -347,65 +719,82 @@
             }
             function check_field_values() {
                 var passed = true;
-                var checkOutput = "Checking Fields\n\n";
-                jQuery.each(set_data_to, function (i, val) {
+                var checkOutput = 'Checking Fields\n\n';
+                jQuery.each(set_data_to, function(i, val) {
                     var field = $('#' + i);
                     var value = field.val();
                     if (field.is(':checkbox, :radio')) {
                         value = field.prop('checked');
                     }
                     var value_should_be = on_reload_data_should_be[i];
-                    
+
                     var correct = value === value_should_be;
-                    if( typeof (value_should_be) === 'object' || typeof (value_should_be) === 'array') {
+                    if (
+                        typeof value_should_be === 'object' ||
+                        typeof value_should_be === 'array'
+                    ) {
                         correct = true;
-                        if( get_object_length(value_should_be) != get_object_length(value) ) {
+                        if (
+                            get_object_length(value_should_be) !=
+                            get_object_length(value)
+                        ) {
                             correct = false;
-                        }
-                        else {
-                            correct = check_values_equal(value_should_be, value);
+                        } else {
+                            correct = check_values_equal(
+                                value_should_be,
+                                value
+                            );
                         }
                     }
-                    if( correct ) {
-                        checkOutput += field.attr('name') + ": passed\n";
-                    }
-                    else {
+                    if (correct) {
+                        checkOutput += field.attr('name') + ': passed\n';
+                    } else {
                         passed = false;
                         var value_is = field.val();
                         if (field.is(':checkbox, :radio')) {
                             value_is = field.prop('checked');
                         }
-                        checkOutput += "---------------\n" + field.attr('name') + ': failed\nValue should be: "' + val + '"\nValue is: "' + value_is + '"\n---------------\n\n';
+                        checkOutput +=
+                            '---------------\n' +
+                            field.attr('name') +
+                            ': failed\nValue should be: "' +
+                            val +
+                            '"\nValue is: "' +
+                            value_is +
+                            '"\n---------------\n\n';
                     }
                 });
                 $('#test_output').val(checkOutput);
-                set_test_result('Check field data', passed ? 'Passed' : 'Failed');
+                set_test_result(
+                    'Check field data',
+                    passed ? 'Passed' : 'Failed'
+                );
                 if (passed) {
-                    console.log("All checks passed");
-                    $('#demo_dynamic_change').submit();
-                }
-                else {
-                    console.log("Check failed");
-                    $('#html5_input_types').submit();
+                    console.log('All checks passed');
+                } else {
+                    console.log('Check failed');
                 }
             }
             function get_field_values() {
                 var fieldData = {};
-                $('form').each(function (index, elem) {
-                    $(this).find(':input').each(function (index, elem) {
-                        var value = $(this).val();
-                        if ($(this).is(':checkbox, :radio')) {
-                            value = $(this).prop('checked');
-                        }
-                        fieldData[$(this).attr('id')] = value;
-                    });
+                $('form').each(function(index, elem) {
+                    $(this)
+                        .find(':input')
+                        .each(function(index, elem) {
+                            var value = $(this).val();
+                            if ($(this).is(':checkbox, :radio')) {
+                                value = $(this).prop('checked');
+                            }
+                            fieldData[$(this).attr('id')] = value;
+                        });
                 });
-                $('#test_output').val("Field Data: \n\n" + JSON.stringify(fieldData));
+                $('#test_output').val(
+                    'Field Data: \n\n' + JSON.stringify(fieldData)
+                );
                 console.log(fieldData);
             }
 
-            $(function () {
-                
+            $(function() {
                 $('#clear_local_storage').click(clear_local_storage);
                 $('#run_test_set_fields').click(set_field_values);
                 $('#check_test_fields').click(check_field_values);
@@ -418,14 +807,12 @@
             if (pathname.indexOf('#autorun') != -1) {
                 setTimeout(clear_local_storage, 2000);
                 setTimeout(set_field_values, 3000);
-                setTimeout(function () {
+                setTimeout(function() {
                     $('#your_average_form').submit();
                 }, 3000);
-            }
-            else if (pathname.indexOf('#submitted') != -1) {
+            } else if (pathname.indexOf('#submitted') != -1) {
                 setTimeout(check_field_values, 2000);
             }
         </script>
-
     </body>
 </html>
