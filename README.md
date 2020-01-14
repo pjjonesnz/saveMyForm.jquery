@@ -34,7 +34,13 @@ Use this script to save form input state automatically in your website user's br
 <script src="src/saveMyForm.jquery.js"></script>
 ```
 
-3. Call the plugin when jQuery is ready:
+3. Add ie8 support if required (note: add type="text/javascript" to other includes)
+
+``` html
+<script type="text/javascript" src="src/ie8.support.js"></script>
+```
+
+4. Call the plugin when jQuery is ready:
 
 ``` javascript
 $(function () {
@@ -42,7 +48,7 @@ $(function () {
 });
 ```
 
-4. or for all forms on the current page:
+5. or for all forms on the current page:
 
 ``` javascript
 $(function () {
