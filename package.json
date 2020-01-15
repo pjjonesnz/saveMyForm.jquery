@@ -1,0 +1,32 @@
+{
+  "name": "savemyform.jquery",
+  "version": "1.4.0",
+  "description": "Save form state in the browser's localStorage",
+  "main": "src/saveMyForm.jquery.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjjonesnz/saveMyForm.jquery.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery",
+    "jquery-form",
+    "jquery",
+    "form",
+    "forms",
+    "input",
+    "save",
+    "state",
+    "local",
+    "storage"
+  ],
+  "author": "Paul Jones",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pjjonesnz/saveMyForm.jquery/issues"
+  },
+  "homepage": "https://github.com/pjjonesnz/saveMyForm.jquery#readme"
+}

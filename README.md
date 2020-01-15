@@ -20,25 +20,25 @@ Fix the frustration of your site visitors filling in a long feedback, enquiry or
 
 ## Usage
 
-1. Include jQuery:
+Include jQuery:
 
 ``` html
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 ```
 
-2. Include plugin's code:
+Include the plugin javascript:
 
 ``` html
 <script src="src/saveMyForm.jquery.js"></script>
 ```
 
-3. Add ie8 support if required (note: add type="text/javascript" to other includes)
+Add ie8 support if required (note: add type="text/javascript" to other includes)
 
 ``` html
 <script type="text/javascript" src="src/ie8.support.js"></script>
 ```
 
-4. Call the plugin when jQuery is ready:
+Call the plugin when jQuery is ready:
 
 ``` javascript
 $(function () {
@@ -46,7 +46,7 @@ $(function () {
 });
 ```
 
-5. or for all forms on the current page:
+Or you can specify the jquery selector as required - eg. call it for all forms on the current page:
 
 ``` javascript
 $(function () {
