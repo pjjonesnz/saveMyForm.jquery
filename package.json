@@ -18,10 +18,14 @@
     "form",
     "forms",
     "input",
+    "data",
     "save",
+    "persist",
     "state",
+    "store",
     "local",
-    "storage"
+    "storage",
+    "localstorage"
   ],
   "author": "Paul Jones",
   "license": "MIT",
