@@ -2,9 +2,7 @@
 
 **Save form state in the browser's localStorage.**
 
-Imagine your subscribers filling in a long feedback form or writing lots of important information on your website only to have their child shut down the web browser while they stopped to grab a cup of coffee. Not good! When they re-open your site all of their precious data will be completely safe!
-
-Use this script to save form input state automatically in your website user's browser so that they can return and complete it at a later time.
+Fix the frustration of your site visitors filling in a long feedback, enquiry or booking form only to have their information lost before submission if their browser crashes or they get disconnected while on the go. Save My Form saves the form state in their local browser as they type, meaning that if they close down their browser their form will still have their information ready to complete when they return.
 
 ## Features
 
@@ -79,6 +77,14 @@ $("#form_id").saveMyForm({
 });
 ```
 
+The defaults are publically accessable, so if you prefer you can also preset the defaults for all following calls to saveMyForm(). You obviously wouldn't want to set the formName using this method.
+
+``` javascript
+$.fn['saveMyForm'].defaults.resetOnSubmit = false;
+$("#form1").saveMyForm();
+$("#form2").saveMyForm();
+```
+
 The available options are:
 * `exclude` – jQuery selectors to define form fields that you don't want to save data for. See: https://api.jquery.com/category/selectors/ for more about jQuery selectors
 * `include` - jQuery selectors to define form fields that you DO want to save data for. 
@@ -123,9 +129,21 @@ True by default to allow the form to automatically reload form data if it is pre
 
 #### `resetOnSubmit: true`
 
-Resets the localStorage for that form when the form is submit. If form submission is cancelled by a subsequent script (eg. a form validation script), or if a server-side script is used to validate the form and the page is reloaded as it is invalid, then this may cause the data in localStorage to be cleared even though the form isn't accepted for submission. If this is the case then you may prefer to set this option to false and add a custom script to reset localStorage when the server redirects to your 'Submission successful' page.
+Resets the localStorage for that form when the form is submit. If form submission is cancelled by a subsequent script (eg. a form validation script), or if a server-side script is used to validate the form and the page is reloaded as it is invalid, then this may cause the data in localStorage to be cleared even though the form isn't accepted for submission. Please note that having this setting set to true may also reset their saved information if they successfully submitted the form but they moved out of range of an Internet connection. If any of these issues are valid for your site, then you may prefer to set this option to false and add a custom script to reset the form's localStorage when the server redirects to your 'Submission successful' page. You can do this using the 'clearStorage' or 'clearStorageByFormName' methods outlined below.
 
-### Methods
+### Public Plugin Methods
+
+* `clearStorageByFormName` - Clears all the stored input values for a particular form. If you are distinguishing the form using a pathname as well (see addPathName option above), you will need to add the pathname before the form name.
+
+``` javascript
+// Example to clear storage for a particular form
+$.fn['saveMyForm'].clearStorageByFormName('storedFormName');
+
+// Or if pathname is being used to distinguish the form from the rest of your site use the following
+$.fn['saveMyForm'].clearStorageByFormName(the_pathname + '_' + 'storedFormName');
+```
+
+### Methods to call on plugin instance
 
 When Save My Form is initialized, you can use API methods to perform certain functions. Call the method with `$(selector).saveMyForm('methodToCall')` where `methodToCall` is:
 
@@ -146,12 +164,13 @@ $("#form_field_id").val('New Value').change();
 Browsers that handle localStorage [See CanIUse](https://caniuse.com/#search=localStorage)
 
 #### Tested on:
-IE 8+
-Firefox 3.6+
-Chrome 15+
-Opera 15+
-Safari 4+
-Edge 15+
+
+*IE 8+
+*Firefox 3.6+
+*Chrome 15+
+*Opera 15+
+*Safari 4+
+*Edge 15+
 
 Thanks to https://browserstack.com for their fantastic testing tools!
 

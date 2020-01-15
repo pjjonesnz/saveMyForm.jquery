@@ -1,6 +1,6 @@
 /*!
  * Save My Form 2020 - a jQuery Plugin
- * version: 1.0
+ * version: 1.4.0
  * Copyright: 2020 Paul Jones
  * MIT license
  */
@@ -8,24 +8,13 @@
 (function($, window, document, undefined) {
     'use strict';
 
-    var pluginName = 'saveMyForm',
-        defaults = {
-            exclude: ':password, :hidden, :file, .disable_save',
-            include: null,
-            formName: undefined,
-            addPathToName: false,
-            addPathLength: -255,
-            loadInputs: true,
-            sameNameSeparator: '___',
-            resetOnSubmit: true
-        };
+    var pluginName = 'saveMyForm';
 
     function saveMyForm(element, options) {
         this.element = element;
-        this.settings = $.extend({}, defaults, options);
-        this._defaults = defaults;
+        this.settings = $.extend({}, $.fn[pluginName].defaults, options);
         this._name = pluginName;
-        this._multipleList = {};
+        this._loadingList = {};
         this._elementList = [];
         var $element = $(element);
 
@@ -61,6 +50,7 @@
     $.extend(saveMyForm.prototype, {
         init: function() {
             var $plugin = this;
+            this._elementList = this.getElementList();
             $(this.element)
                 .find(':input')
                 .each(function() {
@@ -95,26 +85,29 @@
                             $plugin.storeElement(e);
                         }, 500)
                     );
-                if (this._elementList.indexOf(name) === -1) {
-                    this._elementList.push(name);
-                } else {
+                
+                
+                if (this._loadingList[name] === undefined) {
+                    this._loadingList[name] = 0;
+                }
+                else {
                     // If another element is found with the same name that isn't a radio group,
                     // add multiple data to differentiate the field
+                    
                     if (!$(element).is(':radio')) {
-                        if (!this._multipleList[name]) {
-                            this._multipleList[name] = 1;
-                        }
+                        this._loadingList[name]++;
 
-                        $.data(element, 'multiple', this._multipleList[name]);
-                        this._elementList.push(
+                        $.data(element, 'multiple', this._loadingList[name]);
+                        name =
                             name +
-                                this.settings.sameNameSeparator +
-                                this._multipleList[name]
-                        );
-
-                        this._multipleList[name]++;
+                            this.settings.sameNameSeparator +
+                            this._loadingList[name];
                     }
                 }
+                if (this._elementList.indexOf(name) === -1) {
+                    this._elementList.push(name);
+                } 
+
                 if (this.settings.loadInputs === true) {
                     this.loadElement(element);
                 }
@@ -149,11 +142,7 @@
             localStorage.setItem(name, JSON.stringify(value));
         },
         getElementList: function() {
-            return (
-                JSON.parse(
-                    localStorage.getItem('elementList_' + this._formName)
-                ) || []
-            );
+            return $.fn[pluginName].getElementListByFormName(this._formName);
         },
         storeElementList: function() {
             localStorage.setItem(
@@ -165,15 +154,9 @@
             localStorage.removeItem('elementList_' + this._formName);
         },
         clearStorage: function() {
-            try {
-                var elements = this.getElementList();
-                $.each(elements, function(key, value) {
-                    localStorage.removeItem(value);
-                });
-            } catch (err) {
-                console.log(err);
-            }
+            $.fn[pluginName].clearStorageByFormName(this._formName);
         },
+        
         getName: function(element) {
             var $element = $(element);
             var elName =
@@ -197,6 +180,7 @@
         }
     });
 
+    
     $.fn[pluginName] = function(methodOrOptions, args) {
         return this.each(function() {
             var $plugin = $.data(this, 'plugin_' + pluginName);
@@ -219,6 +203,42 @@
             }
         });
     };
+
+    // Plugin defaults
+    $.fn[pluginName].defaults = {
+        exclude: ':password, :hidden, :file, .disable_save',
+        include: null,
+        formName: undefined,
+        addPathToName: false,
+        addPathLength: -255,
+        loadInputs: true,
+        sameNameSeparator: '___',
+        resetOnSubmit: true
+    };
+
+    $.fn[pluginName].getElementListByFormName = function( savedFormName ) {
+        return (
+            JSON.parse(
+                localStorage.getItem('elementList_' + savedFormName)
+            ) || []
+        );
+    };
+
+    $.fn[pluginName].clearStorageByFormName = function( savedFormName ) {
+        try {
+            var elements = $.fn[pluginName].getElementListByFormName( savedFormName );
+            if (elements.length > 0) {
+                $.each(elements, function(key, value) {
+                    localStorage.removeItem(value);
+                });
+                return true;
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        return false;
+    };
+
 })(jQuery, window, document);
 
 // Underscore debounce function

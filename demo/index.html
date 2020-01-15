@@ -4,7 +4,7 @@
         <title>Save My Form 2020 - a jQuery Plugin - Demo</title>
         <script
             type="text/javascript"
-            src="//code.jquery.com/jquery-1.12.3.js"
+            src="http://code.jquery.com/jquery-1.12.3.js"
         ></script>
         <script
             type="text/javascript"
@@ -16,6 +16,8 @@
         ></script>
         <script type="text/javascript">
             $(function() {
+                // Can set defaults before calling the plugin like:
+                // $.fn['saveMyForm'].defaults.resetOnSubmit = true;
                 $('form').saveMyForm();
             });
         </script>
@@ -32,11 +34,12 @@
                 width: 400px;
                 height: 70%;
                 position: fixed;
-                right: 10px;
+                right: 20px;
                 top: 2%;
                 background: white;
                 border: 1px solid black;
                 max-width: 40%;
+                box-shadow: 5px 10px 18px #888888;
             }
             @media screen and (max-width: 500px) {
                 #test_box {
@@ -494,16 +497,16 @@
                 <legend>
                     Demo: PHP Style Input fields Sharing the Same Name
                 </legend>
-                <label>Text 1:<input id="i41" name="same_text[]"/></label><br />
-                <label>Text 2:<input id="i42" name="same_text[]"/></label><br />
-                <label>Text 3:<input id="i43" name="same_text[]"/></label><br />
+                <label>Text 1:<input name="same_text[]"/></label><br />
+                <label>Text 2:<input name="same_text[]"/></label><br />
+                <label>Text 3:<input name="same_text[]"/></label><br />
                 <input type="submit" value="Submit Form" />
             </fieldset>
         </form>
 
         <div id="test_box">
             <div style="background: black; color: white; padding: 20px;">
-                <h3 style="margin: 0">Selenium Testing</h3>
+                <h3 style="margin: 0">Form Testing</h3>
             </div>
             <div style="padding: 20px;">
                 <ol>
@@ -521,7 +524,7 @@
                             value="Set All Fields"
                         />
                     </li>
-                    <li>Refresh browser</li>
+                    <li><input type="button" id="reload_browser" value="Reload browser" /></li>
                     <li>
                         <input
                             type="button"
@@ -550,6 +553,11 @@
                     >Page ready for test:
                     <input id="page_ready" value="False"/></label
                 ><br />
+                 <input
+                            type="button"
+                            id="test_clear_storage_by_form_name"
+                            value="Test Clear Local Storage for Form by Name"
+                        />
             </div>
         </div>
 
@@ -597,9 +605,7 @@
                 i38: 'Text 1 (!@\'`"&amp;#000000)',
                 i39: 'Text 2',
                 i40: 'Text 3',
-                i41: 'PHP Text 1',
-                i42: 'PHP Text 2',
-                i43: 'PHP Text 3 (!@\'`"&amp;#000000)'
+                'same_text[]': [ 'PHP Text 1', 'PHP Text 2', 'PHP Text 3 (!@\'`"&amp;#000000)']
             };
             var on_reload_data_should_be = {
                 i01: 'Test Text - (!@\'`"&amp;#000000)',
@@ -644,9 +650,7 @@
                 i38: 'Text 1 (!@\'`"&amp;#000000)',
                 i39: 'Text 2',
                 i40: 'Text 3',
-                i41: 'PHP Text 1',
-                i42: 'PHP Text 2',
-                i43: 'PHP Text 3 (!@\'`"&amp;#000000)'
+                'same_text[]': [ 'PHP Text 1', 'PHP Text 2', 'PHP Text 3 (!@\'`"&amp;#000000)']
             };
             function clear_local_storage() {
                 try {
@@ -670,21 +674,28 @@
                 var summary =
                     "Fields Set\n\nThe following error is expected to be listed below: 'InvalidStateError setting field my_file'\n\nTest Output:\n\n";
                 var errorText = '';
-                jQuery.each(set_data_to, function(i, val) {
+                $.each(set_data_to, function(i, val) {
                     try {
+                        if( i == 'same_text[]') {
+                            $.each(val, function(x,sn_val) {
+                                $("input[name='same_text[]']").eq(x).val(sn_val).change();
+                            });
+                        }
+                        else {
                         var field = $('#' + i);
-                        if (field.is(':radio, :checkbox')) {
-                            field.prop('checked', val);
-                            if (
-                                (field.is(':radio') && val === true) ||
-                                field.is(':checkbox')
-                            ) {
-                                field.change();
+                            if (field.is(':radio, :checkbox')) {
+                                field.prop('checked', val);
+                                if (
+                                    (field.is(':radio') && val === true) ||
+                                    field.is(':checkbox')
+                                ) {
+                                    field.change();
+                                }
+                            } else {
+                                $('#' + i)
+                                    .val(val)
+                                    .change();
                             }
-                        } else {
-                            $('#' + i)
-                                .val(val)
-                                .change();
                         }
                     } catch (err) {
                         var error =
@@ -725,48 +736,79 @@
                 var passed = true;
                 var checkOutput = 'Checking Fields\n\n';
                 jQuery.each(set_data_to, function(i, val) {
-                    var field = $('#' + i);
-                    var value = field.val();
-                    if (field.is(':checkbox, :radio')) {
-                        value = field.prop('checked');
+                    var value;
+                    var value_should_be;
+                    var correct;
+                    var value_is;
+                    var field
+                    if( i == 'same_text[]') {
+                        var all_correct = true;
+                        $.each(val, function(x, sn_val) {
+                            field = $("input[name='same_text[]']").eq(x);
+                            value_is = field.val();
+                            value_should_be = on_reload_data_should_be[i][x];
+                            if( value_is === value_should_be) {
+                                checkOutput += field.attr('name') + ': passed\n';
+                            } else {
+                                passed = false;
+                                checkOutput +=
+                                    '---------------\n' +
+                                    field.attr('name') +
+                                    ': failed\nValue should be: "' +
+                                    value_should_be +
+                                    '"\nValue is: "' +
+                                    value_is +
+                                    '"\n---------------\n\n';
+                            }
+                        });
                     }
-                    var value_should_be = on_reload_data_should_be[i];
-
-                    var correct = value === value_should_be;
-                    if (
-                        typeof value_should_be === 'object' ||
-                        typeof value_should_be === 'array'
-                    ) {
-                        correct = true;
-                        if (
-                            get_object_length(value_should_be) !=
-                            get_object_length(value)
-                        ) {
-                            correct = false;
-                        } else {
-                            correct = check_values_equal(
-                                value_should_be,
-                                value
-                            );
-                        }
-                    }
-                    if (correct) {
-                        checkOutput += field.attr('name') + ': passed\n';
-                    } else {
-                        passed = false;
-                        var value_is = field.val();
+                    else {
+                        field = $('#' + i);
+                        value = field.val();
                         if (field.is(':checkbox, :radio')) {
-                            value_is = field.prop('checked');
+                            value = field.prop('checked');
                         }
-                        checkOutput +=
-                            '---------------\n' +
-                            field.attr('name') +
-                            ': failed\nValue should be: "' +
-                            val +
-                            '"\nValue is: "' +
-                            value_is +
-                            '"\n---------------\n\n';
+                        value_should_be = on_reload_data_should_be[i];
+
+                        correct = value === value_should_be;
+                        if (
+                            typeof value_should_be === 'object' ||
+                            typeof value_should_be === 'array'
+                        ) {
+                            correct = true;
+                            if (
+                                get_object_length(value_should_be) !=
+                                get_object_length(value)
+                            ) {
+                                correct = false;
+                            } else {
+                                correct = check_values_equal(
+                                    value_should_be,
+                                    value
+                                );
+                            }
+                        }
+                        if(!correct) {
+                            value_is = field.val();
+                            if (field.is(':checkbox, :radio')) {
+                                value_is = field.prop('checked');
+                            }
+                        }
+                        if (correct) {
+                            checkOutput += field.attr('name') + ': passed\n';
+                        } else {
+                            passed = false;
+                            checkOutput +=
+                                '---------------\n' +
+                                field.attr('name') +
+                                ': failed\nValue should be: "' +
+                                val +
+                                '"\nValue is: "' +
+                                value_is +
+                                '"\n---------------\n\n';
+                        }
                     }
+                    
                 });
                 $('#test_output').val(checkOutput);
                 set_test_result(
@@ -803,7 +845,14 @@
                 $('#run_test_set_fields').click(set_field_values);
                 $('#check_test_fields').click(check_field_values);
                 $('#run_test_get_fields').click(get_field_values);
+                $('#reload_browser').click(function() {
+                    location.reload();
+                })
+                $('#test_clear_storage_by_form_name').click(function() {
+                    $.fn['saveMyForm'].clearStorageByFormName('your_average_form');
+                });
                 $('#page_ready').val('True');
+                
             });
 
             var pathname = window.location.href;
