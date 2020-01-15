@@ -163,16 +163,28 @@ $("#form_field_id").val('New Value').change();
 
 Browsers that handle localStorage [See CanIUse](https://caniuse.com/#search=localStorage)
 
-#### Tested on:
+#### Tested on the following browsers using jQuery 1.12.3:
 
-*IE 8+
-*Firefox 3.6+
-*Chrome 15+
-*Opera 15+
-*Safari 4+
-*Edge 15+
+* IE 8+
+* Firefox 3.6+
+* Chrome 15+
+* Opera 15+
+* Safari 4+
+* Edge 15+
 
 Thanks to https://browserstack.com for their fantastic testing tools!
+
+### jQuery
+
+Runs on all 3 jQuery major versions
+
+#### Tested on:
+
+* jQuery Core 1.12.4, 1.12.3
+* jQuery Core 2.2.4, 2.2.3
+* jQuery Core 3.4.1, 3.4.0
+
+Note: different jQuery versions have different browser compatibility. For widest compatibility use jQuery 1.x
 
 ## License
 
