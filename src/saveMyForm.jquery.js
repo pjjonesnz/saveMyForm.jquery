@@ -1,6 +1,6 @@
 /*!
  * Save My Form 2020 - a jQuery Plugin
- * version: 1.4.5
+ * version: 1.4.6
  * Copyright: 2020 Paul Jones
  * MIT license
  */
@@ -85,15 +85,13 @@
                             $plugin.storeElement(e);
                         }, 500)
                     );
-                
-                
+
                 if (this._loadingList[name] === undefined) {
                     this._loadingList[name] = 0;
-                }
-                else {
+                } else {
                     // If another element is found with the same name that isn't a radio group,
                     // add multiple data to differentiate the field
-                    
+
                     if (!$(element).is(':radio')) {
                         this._loadingList[name]++;
 
@@ -106,7 +104,7 @@
                 }
                 if (this._elementList.indexOf(name) === -1) {
                     this._elementList.push(name);
-                } 
+                }
 
                 if (this.settings.loadInputs === true) {
                     this.loadElement(element);
@@ -119,13 +117,19 @@
             if (value !== null) {
                 value = JSON.parse(value);
                 if ($(element).is(':checkbox')) {
-                    $(element).prop('checked', value);
+                    $(element)
+                        .prop('checked', value)
+                        .change();
                 } else if ($(element).is(':radio')) {
                     if (value == $(element).val()) {
-                        $(element).prop('checked', true);
+                        $(element)
+                            .prop('checked', true)
+                            .change();
                     }
                 } else {
-                    $(element).val(value);
+                    $(element)
+                        .val(value)
+                        .change();
                 }
             }
         },
@@ -156,12 +160,11 @@
         clearStorage: function() {
             $.fn[pluginName].clearStorageByFormName(this._formName);
         },
-        
         getName: function(element) {
             var $element = $(element);
             // Set by name first to allow radio groups to function, then id
-            var elName = 
-                 $element.attr('name') !== undefined
+            var elName =
+                $element.attr('name') !== undefined
                     ? $element.attr('name')
                     : $element.attr('id') !== undefined
                     ? $element.attr('id')
@@ -181,7 +184,6 @@
         }
     });
 
-    
     $.fn[pluginName] = function(methodOrOptions, args) {
         return this.each(function() {
             var $plugin = $.data(this, 'plugin_' + pluginName);
@@ -217,17 +219,18 @@
         resetOnSubmit: true
     };
 
-    $.fn[pluginName].getElementListByFormName = function( savedFormName ) {
+    $.fn[pluginName].getElementListByFormName = function(savedFormName) {
         return (
-            JSON.parse(
-                localStorage.getItem('elementList_' + savedFormName)
-            ) || []
+            JSON.parse(localStorage.getItem('elementList_' + savedFormName)) ||
+            []
         );
     };
 
-    $.fn[pluginName].clearStorageByFormName = function( savedFormName ) {
+    $.fn[pluginName].clearStorageByFormName = function(savedFormName) {
         try {
-            var elements = $.fn[pluginName].getElementListByFormName( savedFormName );
+            var elements = $.fn[pluginName].getElementListByFormName(
+                savedFormName
+            );
             if (elements.length > 0) {
                 $.each(elements, function(key, value) {
                     localStorage.removeItem(value);
@@ -239,7 +242,6 @@
         }
         return false;
     };
-
 })(jQuery, window, document);
 
 // Underscore debounce function
