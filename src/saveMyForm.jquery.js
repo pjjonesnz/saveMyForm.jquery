@@ -1,6 +1,6 @@
 /*!
  * Save My Form 2020 - a jQuery Plugin
- * version: 1.4.0
+ * version: 1.4.3
  * Copyright: 2020 Paul Jones
  * MIT license
  */
@@ -159,11 +159,12 @@
         
         getName: function(element) {
             var $element = $(element);
-            var elName =
-                $element.attr('id') !== undefined
-                    ? $element.attr('id')
-                    : $element.attr('name') !== undefined
+            // Set by name first to allow radio groups to function, then id
+            var elName = 
+                 $element.attr('name') !== undefined
                     ? $element.attr('name')
+                    : $element.attr('id') !== undefined
+                    ? $element.attr('id')
                     : undefined;
             if (elName === undefined) {
                 return undefined;
