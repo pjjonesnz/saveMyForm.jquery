@@ -129,18 +129,18 @@ True by default to allow the form to automatically reload form data if it is pre
 
 #### `resetOnSubmit: true`
 
-Resets the localStorage for that form when the form is submit. If form submission is cancelled by a subsequent script (eg. a form validation script), or if a server-side script is used to validate the form and the page is reloaded as it is invalid, then this may cause the data in localStorage to be cleared even though the form isn't accepted for submission. Please note that having this setting set to true may also reset their saved information if they successfully submitted the form but they moved out of range of an Internet connection. If any of these issues are valid for your site, then you may prefer to set this option to false and add a custom script to reset the form's localStorage when the server redirects to your 'Submission successful' page. You can do this using the 'clearStorage' or 'clearStorageByFormName' methods outlined below.
+Resets the localStorage for that form when the form is submit. If form submission is cancelled by a subsequent script (eg. a form validation script), or if a server-side script is used to validate the form and the page is reloaded as it is invalid, then this may cause the data in localStorage to be cleared even though the form isn't accepted for submission. Please note that having this setting set to true may also reset their saved information if they successfully submitted the form but they moved out of range of an Internet connection. If any of these issues are valid for your site, then you may prefer to set this option to false and add a custom script to reset the form's localStorage when the server redirects to your 'Submission successful' page. You can do this using the 'clearStorage' method outlined below.
 
 ### Public Plugin Methods
 
-* `clearStorageByFormName` - Clears all the stored input values for a particular form. If you are distinguishing the form using a pathname as well (see addPathName option above), you will need to add the pathname before the form name.
+* `clearStorage` - Clears all the stored input values for a particular form. If you are distinguishing the form using a pathname as well (see addPathName option above), you will need to add the pathname before the form name.
 
 ``` javascript
 // Example to clear storage for a particular form
-$.saveMyForm.clearStorageByFormName('storedFormName');
+$.saveMyForm.clearStorage('storedFormName');
 
 // Or if pathname is being used to distinguish the form from the rest of your site use the following
-$.saveMyForm.clearStorageByFormName(the_pathname + '_' + 'storedFormName');
+$.saveMyForm.clearStorage(the_pathname + '_' + 'storedFormName');
 ```
 
 ### Methods to call on plugin instance
