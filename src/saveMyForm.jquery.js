@@ -62,7 +62,7 @@
                     return;
                 }
                 var $plugin = this;
-                this._elementList = this.getElementList();
+                this._elementList = $.saveMyForm.getElementList(this._formName);
                 $(this._form)
                     .find(':input')
                     .each(function() {
@@ -71,7 +71,7 @@
                 this.storeElementList();
                 if (this.settings.resetOnSubmit === true) {
                     $(this._form).submit(function() {
-                        $plugin.clearStorage();
+                        $.saveMyForm.clearStorage($plugin._formName);
                     });
                 }
             },
@@ -191,9 +191,6 @@
                 }
                 localStorage.setItem(name, JSON.stringify(value));
             },
-            getElementList: function() {
-                return $.saveMyForm.getElementListByFormName(this._formName);
-            },
             storeElementList: function() {
                 localStorage.setItem(
                     'elementList_' + this._formName,
@@ -202,9 +199,6 @@
             },
             clearElementList: function() {
                 localStorage.removeItem('elementList_' + this._formName);
-            },
-            clearStorage: function() {
-                $.saveMyForm.clearStorageByFormName(this._formName);
             },
             getName: function(element) {
                 var $element = $(element);
@@ -229,25 +223,17 @@
                 );
             }
         },
-        addCallback: function(name, method) {
-            $.saveMyForm.callbacks[name] = method;
-        },
-        callbacks: {
-            test: function() {
-                console.log('test');
-            }
-        },
-        getElementListByFormName: function(savedFormName) {
+        getElementList: function(savedFormName) {
             return (
                 JSON.parse(
                     localStorage.getItem('elementList_' + savedFormName)
                 ) || []
             );
         },
-        clearStorageByFormName: function(savedFormName) {
+        clearStorage: function(savedFormName) {
             console.log('clear Storage by form name');
             try {
-                var elements = $.saveMyForm.getElementListByFormName(
+                var elements = $.saveMyForm.getElementList(
                     savedFormName
                 );
                 if (elements.length > 0) {
@@ -266,9 +252,9 @@
     // functions to maintain compatibility with scripts set up using versions < 1.4.6
     $.fn['saveMyForm'].defaults = $.saveMyForm.defaults;
     $.fn['saveMyForm'].getElementListByFormName =
-        $.saveMyForm.getElementListByFormName;
+        $.saveMyForm.getElementList;
     $.fn['saveMyForm'].clearStorageByFormName =
-        $.saveMyForm.clearStorageByFormName;
+        $.saveMyForm.clearStorage;
 
     // Underscore debounce function
     // Copyright (c) 2009-2018 Jeremy Ashkenas, DocumentCloud and Investigative
