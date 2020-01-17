@@ -4,43 +4,15 @@
         <title>Save My Form 2020 - a jQuery Plugin - Demo</title>
         <script
             type="text/javascript"
-            src="http://code.jquery.com/jquery-1.12.3.min.js"
+            src="//code.jquery.com/jquery-1.8.0.min.js"
         ></script>
-        <script
-            type="text/javascript"
-            src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"
-        ></script>
-         <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script type="text/javascript" src="../src/ie8.support.js"></script>
         <script
             type="text/javascript"
             src="../src/saveMyForm.jquery.js"
         ></script>
-        <script type="text/javascript" src="../src/ie8.support.js"></script>
         <script type="text/javascript">
             $(function() {
-                // Init jquery-ui components
-                $('#jquery_ui_test input:radio').checkboxradio();
-                $('#jquery_ui_test input:checkbox').checkboxradio();
-                $('#slider').slider({
-                    slide: function(event, ui) {
-                        $('#slider_value')
-                            .val(ui.value)
-                            .change();
-                    }
-                });
-                // Make sure the input value is bound to the slider that way it will be updated when loaded
-                $('#slider_value').change(function() {
-                    console.log('changed');
-                    var newVal = $(this).val();
-                    $('#slider').slider('option', 'value', newVal);
-                });
-                $( ".controlgroup" ).controlgroup( {"direction": "vertical"});
-                $( "#datepicker" ).datepicker({
-                    showButtonPanel: true
-                });
-                $( "#speed_select" ).selectmenu();
- 
-                
 
                 $('form').saveMyForm();
             });
@@ -85,7 +57,8 @@
     </head>
 
     <body>
-        <h2>Save My Form 2020 - a jQuery Plugin</h2>
+        <h2>Save My Form 2020 - a jQuery Plugin - HTML Form Demo</h2>
+        <a href="jquery_ui_demo.html">View jQuery UI Demo</a>
         <form
             id="your_average_form"
             method="POST"
@@ -252,7 +225,6 @@
         <script type="text/javascript">
             $(function() {
                 $('#reset_my_form').click(function() {
-                    console.log('clicked');
                     $('#your_average_form').saveMyForm('clearStorage');
                 });
                 $('#i12b').click(function() {
@@ -271,56 +243,6 @@
                 });
             });
         </script>
-
-        <form id="jquery_ui_test">
-            <h2>Radio Group in a Control Group</h2>
-            <fieldset>
-                <div class="controlgroup">
-                <legend>Select a Location:</legend>
-                <label for="radio-1">New York</label>
-                <input type="radio" name="radio-1" id="radio-1" value="NY" />
-                <label for="radio-2">Paris</label>
-                <input type="radio" name="radio-1" id="radio-2" value="Paris" />
-                <label for="radio-3">London</label>
-                <input
-                    type="radio"
-                    name="radio-1"
-                    id="radio-3"
-                    value="London"
-                />
-                </div>
-            </fieldset>
-            <fieldset>
-                <label for="speed_select">Select a speed</label>
-                <select name="speed" id="speed_select">
-                <option>Slower</option>
-                <option>Slow</option>
-                <option selected="selected">Medium</option>
-                <option>Fast</option>
-                <option>Faster</option>
-                </select>
-            </fieldset>
-            <h2>Checkbox</h2>
-            <fieldset>
-                <legend>Hotel Ratings:</legend>
-                <label for="checkbox-1">2 Star</label>
-                <input type="checkbox" name="checkbox-1" id="checkbox-1" />
-                <label for="checkbox-2">3 Star</label>
-                <input type="checkbox" name="checkbox-2" id="checkbox-2" />
-                <label for="checkbox-3">4 Star</label>
-                <input type="checkbox" name="checkbox-3" id="checkbox-3" />
-                <label for="checkbox-4">5 Star</label>
-                <input type="checkbox" name="checkbox-4" id="checkbox-4" />
-            </fieldset>
-            <h2>Slider</h2>
-            <div id="slider"></div>
-            <label>Value: <input type="text" id="slider_value"/></label>
-            <h3>Date Picker</h3>
-            <p>Date: <input type="text" id="datepicker"></p>
-
-            
-
-        </form>
 
         <form
             name="demo_dynamic_change"
@@ -599,11 +521,7 @@
                         />
                     </li>
                     <li>
-                        <input
-                            type="button"
-                            id="reload_browser"
-                            value="Reload browser"
-                        />
+                        <a href="index.html">Reload browser</a>
                     </li>
                     <li>
                         <input
@@ -794,7 +712,6 @@
                             $('#' + i).attr('name') +
                             '\n';
                         errorText += error;
-                        console.log(error);
                     }
                 });
                 $('#test_output').val(summary + errorText);
@@ -904,11 +821,6 @@
                     'Check field data',
                     passed ? 'Passed' : 'Failed'
                 );
-                if (passed) {
-                    console.log('All checks passed');
-                } else {
-                    console.log('Check failed');
-                }
             }
             function get_field_values() {
                 var fieldData = {};
@@ -926,7 +838,6 @@
                 $('#test_output').val(
                     'Field Data: \n\n' + JSON.stringify(fieldData)
                 );
-                console.log(fieldData);
             }
 
             $(function() {

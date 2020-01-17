@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Save My Form 2020 - a jQuery Plugin - jQuery UI Demo</title>
+        <script
+            type="text/javascript"
+            src="//code.jquery.com/jquery-1.8.0.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="//code.jquery.com/ui/1.12.1/jquery-ui.js"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+        />
+        <script type="text/javascript" src="../src/ie8.support.js"></script>
+        <script
+            type="text/javascript"
+            src="../src/saveMyForm.jquery.js"
+        ></script>
+
+        <script type="text/javascript">
+            $(function() {
+                // Init jquery-ui components
+                $('#jquery_ui_test input:radio').checkboxradio();
+                $('#jquery_ui_test input:checkbox').checkboxradio();
+                $('#submit_button').button();
+                $('#slider').slider({
+                    slide: function(event, ui) {
+                        $('#slider_value')
+                            .val(ui.value)
+                            .change();
+                    }
+                });
+                // Make sure the input value is bound to the slider that way it will be updated when loaded
+                $('#slider_value').change(function() {
+                    var newVal = $(this).val();
+                    $('#slider').slider('option', 'value', newVal);
+                });
+                $('.controlgroup').controlgroup({ direction: 'vertical' });
+                $('#datepicker').datepicker({
+                    showButtonPanel: true
+                });
+                $('#speed_select').selectmenu();
+
+                $('form').saveMyForm();
+            });
+        </script>
+        <style>
+            fieldset {
+                margin: 20px;
+                max-width: 500px;
+            }
+            input,
+            select {
+                margin-bottom: 10px;
+            }
+            #test_box {
+                overflow: scroll;
+                width: 400px;
+                height: 70%;
+                position: fixed;
+                right: 20px;
+                top: 2%;
+                background: white;
+                border: 1px solid black;
+                max-width: 40%;
+                box-shadow: 5px 10px 18px #888888;
+            }
+            @media screen and (max-width: 500px) {
+                #test_box {
+                    position: static;
+                    height: auto;
+                    width: 100%;
+                    max-width: 100%;
+                }
+            }
+            .failed {
+                color: red;
+                font-weight: bold;
+            }
+            .passed {
+                color: green;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h2>Save My Form 2020 - a jQuery Plugin</h2>
+        <a href="index.html">View HTML Form Demo</a>
+        <h3>jQuery UI Demo</h3>
+        <form id="jquery_ui_test">
+            <fieldset>
+                <legend>Radio Group in a vertical control group</legend>
+                <div class="controlgroup">
+                    <h4>Select your favorite city</h4>
+                    <label for="radio-1">New York</label>
+                    <input
+                        type="radio"
+                        name="radio-1"
+                        id="radio-1"
+                        value="NY"
+                    />
+                    <label for="radio-2">Paris</label>
+                    <input
+                        type="radio"
+                        name="radio-1"
+                        id="radio-2"
+                        value="Paris"
+                    />
+                    <label for="radio-3">London</label>
+                    <input
+                        type="radio"
+                        name="radio-1"
+                        id="radio-3"
+                        value="London"
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Select</legend>
+                <label for="speed_select">Select a speed</label>
+                <select name="speed" id="speed_select">
+                    <option>Slower</option>
+                    <option>Slow</option>
+                    <option selected="selected">Medium</option>
+                    <option>Fast</option>
+                    <option>Faster</option>
+                </select>
+                <p><strong>NOTE: Needs code to update select box on input change as jQuery UI doesn't do this - COMING SOON with custom callbacks</strong></p>
+            </fieldset>
+            <fieldset>
+                <legend>Checkbox</legend>
+                <label for="checkbox-1">2 Star</label>
+                <input type="checkbox" name="checkbox-1" id="checkbox-1" />
+                <label for="checkbox-2">3 Star</label>
+                <input type="checkbox" name="checkbox-2" id="checkbox-2" />
+                <label for="checkbox-3">4 Star</label>
+                <input type="checkbox" name="checkbox-3" id="checkbox-3" />
+                <label for="checkbox-4">5 Star</label>
+                <input type="checkbox" name="checkbox-4" id="checkbox-4" />
+            </fieldset>
+            <fieldset>
+                <legend>Slider</legend>
+                <div id="slider"></div>
+                <p><label>Value: <input type="text" id="slider_value"/></label></p>
+            </fieldset>
+            <fieldset>
+                <legend>Date Picker</legend>
+                <p>Date: <input type="text" id="datepicker" /></p>
+            </fieldset>
+            <input type="submit" value="Submit" id="submit_button" />
+        </form>
+
+        <div id="test_box">
+            <div style="background: black; color: white; padding: 20px;">
+                <h3 style="margin: 0">Form Testing</h3>
+            </div>
+            <div style="padding: 20px;">
+                <ol>
+                    <li>
+                        <input
+                            type="button"
+                            id="clear_local_storage"
+                            value="Clear All Local Storage"
+                        />
+                    </li>
+                    <li>
+                        <input
+                            type="button"
+                            id="run_test_set_fields"
+                            value="Set All Fields"
+                        />
+                    </li>
+                    <li>
+                        <a href="jquery_ui_demo.html">Reload browser</a>
+                    </li>
+                    <li>
+                        <input
+                            type="button"
+                            id="check_test_fields"
+                            value="Check Field Data After Reload"
+                        />
+                    </li>
+                </ol>
+                <label>Test Run: <input type="text" id="test_run"/></label
+                ><br />
+                <label>Test Result: <input type="text" id="test_result"/></label
+                ><br />
+                <label
+                    >Script Output:<br />
+                    <textarea
+                        style="width: 100%; height: 300px;"
+                        id="test_output"
+                    ></textarea></label
+                ><br />
+                <input
+                    type="button"
+                    id="run_test_get_fields"
+                    value="Get Field Data"
+                /><br />
+                <label
+                    >Page ready for test:
+                    <input id="page_ready" value="False"/></label
+                ><br />
+                <input
+                    type="button"
+                    id="test_clear_storage_by_form_name"
+                    value="Test Clear Local Storage for Form by Name"
+                />
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var set_data_to = {
+                "radio-1": false,
+                "radio-2": true,
+                "radio-3": false,
+                "checkbox-1": false,
+                "checkbox-2": false,
+                "checkbox-3": true,
+                "checkbox-4": true,
+                "speed_select": 'Faster',
+                "slider_value": "44",
+                "datepicker": '10-01-2020',
+            };
+            var on_reload_data_should_be = set_data_to;
+            function clear_local_storage() {
+                try {
+                    localStorage.clear();
+                    $('#test_output').val('Local storage cleared');
+                    set_test_result('Clear Storage', 'Passed');
+                } catch (err) {
+                    $('#test_output').val('Error: ' + err);
+                    set_test_result('Clear Storage', 'Failed');
+                }
+            }
+            function set_test_result(test, result) {
+                $('#test_run').val(test);
+                $('#test_result').val(result);
+                $('#test_result').attr(
+                    'class',
+                    result == 'Passed' ? 'passed' : 'failed'
+                );
+            }
+            function set_field_values() {
+                var summary =
+                    "Fields Set\n\nTest Output:\n\n";
+                var errorText = '';
+                $.each(set_data_to, function(i, val) {
+                    try {
+                        if (i == 'same_text[]') {
+                            $.each(val, function(x, sn_val) {
+                                $("input[name='same_text[]']")
+                                    .eq(x)
+                                    .val(sn_val)
+                                    .change();
+                            });
+                        } else {
+                            var field = $('#' + i);
+                            if (field.is(':radio, :checkbox')) {
+                                field.prop('checked', val);
+                                if (
+                                    (field.is(':radio') && val === true) ||
+                                    field.is(':checkbox')
+                                ) {
+                                    field.change();
+                                }
+                            } else {
+                                $('#' + i)
+                                    .val(val)
+                                    .change();
+                            }
+                        }
+                    } catch (err) {
+                        var error =
+                            err.name +
+                            ' setting field ' +
+                            $('#' + i).attr('name') +
+                            '\n';
+                        errorText += error;
+                        console.log(error);
+                    }
+                });
+                $('#speed_select').data('uiSelectmenu').refresh();
+                $('#test_output').val(summary + errorText);
+                if (errorText === '') {
+                    set_test_result('Set Field Values', 'Passed');
+                } else {
+                    set_test_result('Set Field Values', 'Failed');
+                }
+            }
+            function get_object_length(object) {
+                var count = 0;
+                for (i in object) {
+                    count++;
+                }
+                return count;
+            }
+            function check_values_equal(object1, object2) {
+                for (i in object1) {
+                    if (object2[i] == undefined) {
+                        return false;
+                    }
+                    if (object1[i] != object2[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            function check_field_values() {
+                var passed = true;
+                var checkOutput = 'Checking Fields\n\n';
+                jQuery.each(set_data_to, function(i, val) {
+                    var value;
+                    var value_should_be;
+                    var correct;
+                    var value_is;
+                    var field;
+                    if (i == 'same_text[]') {
+                        var all_correct = true;
+                        $.each(val, function(x, sn_val) {
+                            field = $("input[name='same_text[]']").eq(x);
+                            value_is = field.val();
+                            value_should_be = on_reload_data_should_be[i][x];
+                            if (value_is === value_should_be) {
+                                checkOutput +=
+                                    field.attr('name') + ': passed\n';
+                            } else {
+                                passed = false;
+                                checkOutput +=
+                                    '---------------\n' +
+                                    field.attr('name') +
+                                    ': failed\nValue should be: "' +
+                                    value_should_be +
+                                    '"\nValue is: "' +
+                                    value_is +
+                                    '"\n---------------\n\n';
+                            }
+                        });
+                    } else {
+                        field = $('#' + i);
+                        value = field.val();
+                        if (field.is(':checkbox, :radio')) {
+                            value = field.prop('checked');
+                        }
+                        value_should_be = on_reload_data_should_be[i];
+
+                        correct = value === value_should_be;
+                        if (
+                            typeof value_should_be === 'object' ||
+                            typeof value_should_be === 'array'
+                        ) {
+                            correct = true;
+                            if (
+                                get_object_length(value_should_be) !=
+                                get_object_length(value)
+                            ) {
+                                correct = false;
+                            } else {
+                                correct = check_values_equal(
+                                    value_should_be,
+                                    value
+                                );
+                            }
+                        }
+                        if (!correct) {
+                            value_is = field.val();
+                            if (field.is(':checkbox, :radio')) {
+                                value_is = field.prop('checked');
+                            }
+                        }
+                        if (correct) {
+                            checkOutput += field.attr('name') + ': passed\n';
+                        } else {
+                            passed = false;
+                            checkOutput +=
+                                '---------------\n' +
+                                field.attr('name') +
+                                ': failed\nValue should be: "' +
+                                val +
+                                '"\nValue is: "' +
+                                value_is +
+                                '"\n---------------\n\n';
+                        }
+                    }
+                });
+                $('#test_output').val(checkOutput);
+                set_test_result(
+                    'Check field data',
+                    passed ? 'Passed' : 'Failed'
+                );
+                if (passed) {
+                    console.log('All checks passed');
+                } else {
+                    console.log('Check failed');
+                }
+            }
+            function get_field_values() {
+                var fieldData = {};
+                $('form').each(function(index, elem) {
+                    $(this)
+                        .find(':input')
+                        .each(function(index, elem) {
+                            var value = $(this).val();
+                            if ($(this).is(':checkbox, :radio')) {
+                                value = $(this).prop('checked');
+                            }
+                            fieldData[$(this).attr('id')] = value;
+                        });
+                });
+                $('#test_output').val(
+                    'Field Data: \n\n' + JSON.stringify(fieldData)
+                );
+                console.log(fieldData);
+            }
+
+            $(function() {
+                $('#clear_local_storage').click(clear_local_storage);
+                $('#run_test_set_fields').click(set_field_values);
+                $('#check_test_fields').click(check_field_values);
+                $('#run_test_get_fields').click(get_field_values);
+                $('#reload_browser').click(function() {
+                    location.reload();
+                });
+                $('#test_clear_storage_by_form_name').click(function() {
+                    $.fn['saveMyForm'].clearStorageByFormName(
+                        'jquery_ui_test'
+                    );
+                });
+                $('#page_ready').val('True');
+            });
+
+            var pathname = window.location.href;
+            if (pathname.indexOf('#autorun') != -1) {
+                setTimeout(clear_local_storage, 2000);
+                setTimeout(set_field_values, 3000);
+                setTimeout(function() {
+                    $('#jquery_ui_test').submit();
+                }, 3000);
+            } else if (pathname.indexOf('#submitted') != -1) {
+                setTimeout(check_field_values, 2000);
+            }
+        </script>
+    </body>
+</html>
