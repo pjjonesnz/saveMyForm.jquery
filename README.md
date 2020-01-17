@@ -66,7 +66,7 @@ You can pass options into Save My Form when you initialize the plugin. The defau
 
 ``` javascript
 $("#form_id").saveMyForm({
-	exclude: ':password, :hidden, :file, .disable_save',
+	exclude: ':password, input[type="hidden"], :file, .disable_save',
 	include: null,
 	formName: undefined,
 	addPathToName: false,
@@ -97,7 +97,7 @@ The available options are:
 
 ### Notes about the script options
 
-#### `exclude: ':password, :hidden, :file, .disable_save'`
+#### `exclude: ':password, input[type="hidden"], :file, .disable_save'`
 
 The default settings in the 'exclude' option means that password, hidden and file-upload type fields aren't saved to the browser (of course all this information will be submitted to your website - it just isn't stored in the localStorage of the user's browser if they shut it down). 
 
