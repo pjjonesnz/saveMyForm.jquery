@@ -209,7 +209,7 @@
 
     // Plugin defaults
     $.fn[pluginName].defaults = {
-        exclude: ':password, :hidden, :file, .disable_save',
+        exclude: ':password, input[type="hidden"], :file, .disable_save',
         include: null,
         formName: undefined,
         addPathToName: false,
