@@ -99,9 +99,6 @@
                             '_formindex_' +
                             formIndex;
                     } else {
-                        console.log(
-                            'Unable to save form data - no id, name or index found'
-                        );
                         return false;
                     }
                 }
@@ -237,7 +234,6 @@
             );
         },
         clearStorage: function(savedFormName) {
-            console.log('clear Storage by form name');
             try {
                 var elements = $.saveMyForm.getElementList(savedFormName);
                 if (elements.length > 0) {
