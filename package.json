@@ -4,7 +4,11 @@
   "description": "Save form state in the browser's localStorage",
   "main": "src/saveMyForm.jquery.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "minify": "node-minify --compressor babel-minify --input src/saveMyForm.jquery.js --output src/saveMyForm.jquery.min.js",
+    "replace_version_in_js": "rexreplace \"\\* version: .*\" \"* version: %npm_package_version%\" src/saveMyForm.jquery.js -G",
+    "version": "npm run replace_version_in_js && npm run minify && git add .",
+    "update_git_tags": "git push --follow-tags"
   },
   "repository": {
     "type": "git",
@@ -32,5 +36,9 @@
   "bugs": {
     "url": "https://github.com/pjjonesnz/saveMyForm.jquery/issues"
   },
-  "homepage": "https://github.com/pjjonesnz/saveMyForm.jquery#readme"
+  "homepage": "https://github.com/pjjonesnz/saveMyForm.jquery#readme",
+  "devDependencies": {
+    "node-minify": "^3.6.0",
+    "rexreplace": "^5.1.5"
+  }
 }
