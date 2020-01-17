@@ -1,6 +1,6 @@
 /*!
  * Save My Form 2020 - a jQuery Plugin
- * version: 1.4.7
+ * version: 1.4.6
  * Copyright: 2020 Paul Jones
  * MIT license
  */
@@ -26,9 +26,15 @@
                 }
 
                 if (typeof methodOrOptions === 'string') {
-                    if (typeof $plugin[methodOrOptions] === 'function') {
-                        if (typeof args !== 'array') args = [args];
-                        $plugin[methodOrOptions].apply($plugin, args);
+                    if (methodOrOptions === 'clearStorage') {
+                        $.saveMyForm.clearStorage($plugin._formName);
+                    } else {
+                        if (typeof args !== 'array') {
+                            args = [args];
+                        }
+                        if (typeof $plugin[methodOrOptions] === 'function') {
+                            $plugin[methodOrOptions].apply($plugin, args);
+                        }
                     }
                 }
             });
@@ -233,9 +239,7 @@
         clearStorage: function(savedFormName) {
             console.log('clear Storage by form name');
             try {
-                var elements = $.saveMyForm.getElementList(
-                    savedFormName
-                );
+                var elements = $.saveMyForm.getElementList(savedFormName);
                 if (elements.length > 0) {
                     $.each(elements, function(key, value) {
                         localStorage.removeItem(value);
@@ -251,10 +255,8 @@
 
     // functions to maintain compatibility with scripts set up using versions < 1.4.6
     $.fn['saveMyForm'].defaults = $.saveMyForm.defaults;
-    $.fn['saveMyForm'].getElementListByFormName =
-        $.saveMyForm.getElementList;
-    $.fn['saveMyForm'].clearStorageByFormName =
-        $.saveMyForm.clearStorage;
+    $.fn['saveMyForm'].getElementListByFormName = $.saveMyForm.getElementList;
+    $.fn['saveMyForm'].clearStorageByFormName = $.saveMyForm.clearStorage;
 
     // Underscore debounce function
     // Copyright (c) 2009-2018 Jeremy Ashkenas, DocumentCloud and Investigative
