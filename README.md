@@ -80,7 +80,7 @@ $("#form_id").saveMyForm({
 The defaults are publically accessable, so if you prefer you can also preset the defaults for all following calls to saveMyForm(). You obviously wouldn't want to set the formName using this method.
 
 ``` javascript
-$.fn['saveMyForm'].defaults.resetOnSubmit = false;
+$.saveMyForm.defaults.resetOnSubmit = false;
 $("#form1").saveMyForm();
 $("#form2").saveMyForm();
 ```
@@ -137,10 +137,10 @@ Resets the localStorage for that form when the form is submit. If form submissio
 
 ``` javascript
 // Example to clear storage for a particular form
-$.fn['saveMyForm'].clearStorageByFormName('storedFormName');
+$.saveMyForm.clearStorageByFormName('storedFormName');
 
 // Or if pathname is being used to distinguish the form from the rest of your site use the following
-$.fn['saveMyForm'].clearStorageByFormName(the_pathname + '_' + 'storedFormName');
+$.saveMyForm.clearStorageByFormName(the_pathname + '_' + 'storedFormName');
 ```
 
 ### Methods to call on plugin instance
