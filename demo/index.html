@@ -4,20 +4,44 @@
         <title>Save My Form 2020 - a jQuery Plugin - Demo</title>
         <script
             type="text/javascript"
-            src="//code.jquery.com/jquery-1.12.3.min.js"
+            src="http://code.jquery.com/jquery-1.12.3.min.js"
         ></script>
+        <script
+            type="text/javascript"
+            src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"
+        ></script>
+         <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script
             type="text/javascript"
             src="../src/saveMyForm.jquery.js"
         ></script>
-        <script
-            type="text/javascript"
-            src="../src/ie8.support.js"
-        ></script>
+        <script type="text/javascript" src="../src/ie8.support.js"></script>
         <script type="text/javascript">
             $(function() {
-                // Can set defaults before calling the plugin like:
-                // $.fn['saveMyForm'].defaults.resetOnSubmit = true;
+                // Init jquery-ui components
+                $('#jquery_ui_test input:radio').checkboxradio();
+                $('#jquery_ui_test input:checkbox').checkboxradio();
+                $('#slider').slider({
+                    slide: function(event, ui) {
+                        $('#slider_value')
+                            .val(ui.value)
+                            .change();
+                    }
+                });
+                // Make sure the input value is bound to the slider that way it will be updated when loaded
+                $('#slider_value').change(function() {
+                    console.log('changed');
+                    var newVal = $(this).val();
+                    $('#slider').slider('option', 'value', newVal);
+                });
+                $( ".controlgroup" ).controlgroup( {"direction": "vertical"});
+                $( "#datepicker" ).datepicker({
+                    showButtonPanel: true
+                });
+                $( "#speed_select" ).selectmenu();
+ 
+                
+
                 $('form').saveMyForm();
             });
         </script>
@@ -247,6 +271,56 @@
                 });
             });
         </script>
+
+        <form id="jquery_ui_test">
+            <h2>Radio Group in a Control Group</h2>
+            <fieldset>
+                <div class="controlgroup">
+                <legend>Select a Location:</legend>
+                <label for="radio-1">New York</label>
+                <input type="radio" name="radio-1" id="radio-1" value="NY" />
+                <label for="radio-2">Paris</label>
+                <input type="radio" name="radio-1" id="radio-2" value="Paris" />
+                <label for="radio-3">London</label>
+                <input
+                    type="radio"
+                    name="radio-1"
+                    id="radio-3"
+                    value="London"
+                />
+                </div>
+            </fieldset>
+            <fieldset>
+                <label for="speed_select">Select a speed</label>
+                <select name="speed" id="speed_select">
+                <option>Slower</option>
+                <option>Slow</option>
+                <option selected="selected">Medium</option>
+                <option>Fast</option>
+                <option>Faster</option>
+                </select>
+            </fieldset>
+            <h2>Checkbox</h2>
+            <fieldset>
+                <legend>Hotel Ratings:</legend>
+                <label for="checkbox-1">2 Star</label>
+                <input type="checkbox" name="checkbox-1" id="checkbox-1" />
+                <label for="checkbox-2">3 Star</label>
+                <input type="checkbox" name="checkbox-2" id="checkbox-2" />
+                <label for="checkbox-3">4 Star</label>
+                <input type="checkbox" name="checkbox-3" id="checkbox-3" />
+                <label for="checkbox-4">5 Star</label>
+                <input type="checkbox" name="checkbox-4" id="checkbox-4" />
+            </fieldset>
+            <h2>Slider</h2>
+            <div id="slider"></div>
+            <label>Value: <input type="text" id="slider_value"/></label>
+            <h3>Date Picker</h3>
+            <p>Date: <input type="text" id="datepicker"></p>
+
+            
+
+        </form>
 
         <form
             name="demo_dynamic_change"
@@ -524,7 +598,13 @@
                             value="Set All Fields"
                         />
                     </li>
-                    <li><input type="button" id="reload_browser" value="Reload browser" /></li>
+                    <li>
+                        <input
+                            type="button"
+                            id="reload_browser"
+                            value="Reload browser"
+                        />
+                    </li>
                     <li>
                         <input
                             type="button"
@@ -553,11 +633,11 @@
                     >Page ready for test:
                     <input id="page_ready" value="False"/></label
                 ><br />
-                 <input
-                            type="button"
-                            id="test_clear_storage_by_form_name"
-                            value="Test Clear Local Storage for Form by Name"
-                        />
+                <input
+                    type="button"
+                    id="test_clear_storage_by_form_name"
+                    value="Test Clear Local Storage for Form by Name"
+                />
             </div>
         </div>
 
@@ -605,7 +685,11 @@
                 i38: 'Text 1 (!@\'`"&amp;#000000)',
                 i39: 'Text 2',
                 i40: 'Text 3',
-                'same_text[]': [ 'PHP Text 1', 'PHP Text 2', 'PHP Text 3 (!@\'`"&amp;#000000)']
+                'same_text[]': [
+                    'PHP Text 1',
+                    'PHP Text 2',
+                    'PHP Text 3 (!@\'`"&amp;#000000)'
+                ]
             };
             var on_reload_data_should_be = {
                 i01: 'Test Text - (!@\'`"&amp;#000000)',
@@ -650,7 +734,11 @@
                 i38: 'Text 1 (!@\'`"&amp;#000000)',
                 i39: 'Text 2',
                 i40: 'Text 3',
-                'same_text[]': [ 'PHP Text 1', 'PHP Text 2', 'PHP Text 3 (!@\'`"&amp;#000000)']
+                'same_text[]': [
+                    'PHP Text 1',
+                    'PHP Text 2',
+                    'PHP Text 3 (!@\'`"&amp;#000000)'
+                ]
             };
             function clear_local_storage() {
                 try {
@@ -676,13 +764,15 @@
                 var errorText = '';
                 $.each(set_data_to, function(i, val) {
                     try {
-                        if( i == 'same_text[]') {
-                            $.each(val, function(x,sn_val) {
-                                $("input[name='same_text[]']").eq(x).val(sn_val).change();
+                        if (i == 'same_text[]') {
+                            $.each(val, function(x, sn_val) {
+                                $("input[name='same_text[]']")
+                                    .eq(x)
+                                    .val(sn_val)
+                                    .change();
                             });
-                        }
-                        else {
-                        var field = $('#' + i);
+                        } else {
+                            var field = $('#' + i);
                             if (field.is(':radio, :checkbox')) {
                                 field.prop('checked', val);
                                 if (
@@ -740,15 +830,16 @@
                     var value_should_be;
                     var correct;
                     var value_is;
-                    var field
-                    if( i == 'same_text[]') {
+                    var field;
+                    if (i == 'same_text[]') {
                         var all_correct = true;
                         $.each(val, function(x, sn_val) {
                             field = $("input[name='same_text[]']").eq(x);
                             value_is = field.val();
                             value_should_be = on_reload_data_should_be[i][x];
-                            if( value_is === value_should_be) {
-                                checkOutput += field.attr('name') + ': passed\n';
+                            if (value_is === value_should_be) {
+                                checkOutput +=
+                                    field.attr('name') + ': passed\n';
                             } else {
                                 passed = false;
                                 checkOutput +=
@@ -761,8 +852,7 @@
                                     '"\n---------------\n\n';
                             }
                         });
-                    }
-                    else {
+                    } else {
                         field = $('#' + i);
                         value = field.val();
                         if (field.is(':checkbox, :radio')) {
@@ -788,7 +878,7 @@
                                 );
                             }
                         }
-                        if(!correct) {
+                        if (!correct) {
                             value_is = field.val();
                             if (field.is(':checkbox, :radio')) {
                                 value_is = field.prop('checked');
@@ -808,7 +898,6 @@
                                 '"\n---------------\n\n';
                         }
                     }
-                    
                 });
                 $('#test_output').val(checkOutput);
                 set_test_result(
@@ -847,12 +936,13 @@
                 $('#run_test_get_fields').click(get_field_values);
                 $('#reload_browser').click(function() {
                     location.reload();
-                })
+                });
                 $('#test_clear_storage_by_form_name').click(function() {
-                    $.fn['saveMyForm'].clearStorageByFormName('your_average_form');
+                    $.fn['saveMyForm'].clearStorageByFormName(
+                        'your_average_form'
+                    );
                 });
                 $('#page_ready').val('True');
-                
             });
 
             var pathname = window.location.href;
