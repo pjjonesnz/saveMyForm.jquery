@@ -1,6 +1,6 @@
 {
   "name": "savemyform.jquery",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "Save form state in the browser's localStorage",
   "main": "src/saveMyForm.jquery.js",
   "scripts": {
