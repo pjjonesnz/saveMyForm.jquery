@@ -1,3 +1,23 @@
+### 1.5.0 (2020-01-18)
+
+##### Chores
+
+*  Add changelog ([f74825ee](https://github.com/pjjonesnz/saveMyForm.jquery/commit/f74825eeaf9b160bc72b85e48cab2a6231472c59))
+
+##### Documentation Changes
+
+*  Custom callbacks ([7188799e](https://github.com/pjjonesnz/saveMyForm.jquery/commit/7188799e2e9a596a128eff9b1d550b0b02e5b807))
+*  Fix typos ([8517760c](https://github.com/pjjonesnz/saveMyForm.jquery/commit/8517760c103cb2a24131394ee3f1bda3b18c130b))
+
+##### New Features
+
+*  Add custom callback for jQuery UI Selectmenu ([816f60c6](https://github.com/pjjonesnz/saveMyForm.jquery/commit/816f60c624bf6151d417e66bd269ca74ef86226b))
+*  Add custom callbacks to plugin ([429bab49](https://github.com/pjjonesnz/saveMyForm.jquery/commit/429bab499044e063e579dcfef0bde5edcb5f31a4))
+
+##### Tests
+
+*  Update jQuery UI demo ([a0277125](https://github.com/pjjonesnz/saveMyForm.jquery/commit/a02771251af406741fe78d3a4422a7c5bc827233))
+*  Fix date format for test ([f5b5c59d](https://github.com/pjjonesnz/saveMyForm.jquery/commit/f5b5c59d4bbe209eb6c7fb5e02485eb44bb17ae9))
 
 #### 1.4.7 (2020-01-18)
 
