@@ -19,7 +19,10 @@
             type="text/javascript"
             src="../src/saveMyForm.jquery.js"
         ></script>
-
+        <script
+            type="text/javascript"
+            src="../src/custom_callbacks/jqueryui.saveMyForm.js"
+        ></script>
         <script type="text/javascript">
             $(function() {
                 // Init jquery-ui components
@@ -43,7 +46,6 @@
                     showButtonPanel: true
                 });
                 $('#speed_select').selectmenu();
-
                 $('form').saveMyForm();
             });
         </script>
@@ -129,7 +131,6 @@
                     <option>Fast</option>
                     <option>Faster</option>
                 </select>
-                <p><strong>NOTE: Needs code to update select box on input change as jQuery UI doesn't do this - COMING SOON with custom callbacks</strong></p>
             </fieldset>
             <fieldset>
                 <legend>Checkbox</legend>
