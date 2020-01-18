@@ -9,14 +9,18 @@ Fix the frustration of your site visitors filling in a long feedback, enquiry or
 * Form data is saved in localStorage as it is typed, or as fields are selected or checked, allowing the user to come back at a later date to complete their form, or easily recover from a crash.
 * Easily exclude fields that have sensitive information (eg. passwords) that you don't want saved on their browser.
 * Use multiple forms on a single page
+* Compatible with jQuery UI Widgets
+* Add custom callbacks to save data from your custom UI input controls
 * Saves unique field values even when the name is the same across multiple fields (eg. form input arrays, PHP form data arrays - multiple fields having `name="field_name[]"` )
-* Input is debounced to save excessive writes
+* Keyboard input is debounced to save excessive writes
 * Handles HTML5 Input Types including date, time, URL, search, range, color and more...
 * Custom plugin options to enable integration with server-side validation
 
 ## Demo
 
-[View the form demo](https://www.pauljones.co.nz/github/saveMyForm.jquery/demo/index.html)
+[View the html form demo](https://www.pauljones.co.nz/github/saveMyForm.jquery/demo/index.html)
+
+[View the jQuery UI Widget demo](https://www.pauljones.co.nz/github/saveMyForm.jquery/demo/jquery_ui_demo.html)
 
 ## Usage
 
@@ -26,16 +30,22 @@ Include jQuery:
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 ```
 
+Optional: Add ie8 support if required (note: add type="text/javascript" to other includes)
+
+``` html
+<script type="text/javascript" src="src/ie8.support.js"></script>
+```
+
 Include the plugin javascript:
 
 ``` html
 <script src="src/saveMyForm.jquery.js"></script>
 ```
 
-Add ie8 support if required (note: add type="text/javascript" to other includes)
+Optional: Do you need jQuery UI Widget compatibility? Most widgets are already supported, but extra code is needed if you use the jQuery UI Selectmenu Widget. Certain elements also need to be bound to an input. See the jQuery UI demo for examples.
 
 ``` html
-<script type="text/javascript" src="src/ie8.support.js"></script>
+<script src="custom_callbacks/jqueryui.saveMyForm.js"></script>
 ```
 
 Call the plugin when jQuery is ready:
@@ -44,11 +54,8 @@ Call the plugin when jQuery is ready:
 $(function () {
 	$("#form_id").saveMyForm();
 });
-```
 
-Or you can specify the jquery selector as required - eg. call it for all forms on the current page:
-
-``` javascript
+// Or you can specify the jquery selector as required - eg. call it for all forms on the current page:
 $(function () {
 	$("form").saveMyForm();
 });
@@ -56,7 +63,7 @@ $(function () {
 
 ## Note
 
-For this scipt to work correctly the form input to be saved needs to have its id and/or name set. Inputs without this will be skipped.
+For this scipt to work correctly the form input to be saved needs to have its name and/or id set. Inputs without this will be skipped.
 
 ## API
 
@@ -143,11 +150,39 @@ $.saveMyForm.clearStorage('storedFormName');
 $.saveMyForm.clearStorage(the_pathname + '_' + 'storedFormName');
 ```
 
+* `addCallback` - Adds a Custom Callback to match custom elements which need a little extra help in setting their data. See 'Custom callbacks' below.
+
 ### Methods to call on plugin instance
 
 When Save My Form is initialized, you can use API methods to perform certain functions. Call the method with `$(selector).saveMyForm('methodToCall')` where `methodToCall` is:
 
 * `clearStorage` - clear the localStorage of the form (eg. call on successful ajax submission to reset all data)
+
+## Custom callbacks
+
+The UI for custom javascript input controls (eg. the jQuery UI Selectmenu Widget) don't always have the standard jQuery change event triggered when their data changes. This can cause the element to not update the localStorage. When the form is initialized the UI of your custom control may also need to be refreshed.
+
+You can add custom callbacks to an element to handle this yourself.
+
+Custom callbacks have two available methods:
+
+* `match` - used to tell the plugin that the element should be handled by your callback. The input element gets passed in to the function. Return true to handle it, false to ignore.
+* `loadElement` - is run when the element is initially loaded. You can add code in here to refresh the UI control as well as adding or removing code that runs when the input element changes.
+
+``` javascript
+$.saveMyForm.addCallback({ 
+		match:function(element){}, 
+		loadElement: function(element, plugin){} 
+	});
+```
+
+In the `/custom_callbacks/` folder you'll find a callback all ready for the jQuery UI Selectmenu widget. To enable this just include the code after the main plugin code like this:
+
+``` html
+<script src="custom_callbacks/jqueryui.saveMyForm.js"></script>
+```
+
+Have a read of the comments of this code if you want to learn how to create your own custom callback.
 
 ### Handling dynamically set field values
 
