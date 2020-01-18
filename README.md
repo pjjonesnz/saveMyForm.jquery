@@ -9,7 +9,7 @@ Fix the frustration of your site visitors filling in a long feedback, enquiry or
 * Form data is saved in localStorage as it is typed, or as fields are selected or checked, allowing the user to come back at a later date to complete their form, or easily recover from a crash.
 * Easily exclude fields that have sensitive information (eg. passwords) that you don't want saved on their browser.
 * Use multiple forms on a single page
-* Saves unique field values even when the name is the same accross multiple fields (eg. form input arrays, PHP form data arrays - multiple fields having `name="field_name[]"` )
+* Saves unique field values even when the name is the same across multiple fields (eg. form input arrays, PHP form data arrays - multiple fields having `name="field_name[]"` )
 * Input is debounced to save excessive writes
 * Handles HTML5 Input Types including date, time, URL, search, range, color and more...
 * Custom plugin options to enable integration with server-side validation
@@ -117,15 +117,15 @@ If undefined it is automatically set to the form id, form name or the page's pat
 
 #### `addPathToName: false`
 
-If set to true this adds the website page's pathname to the name of the form to distinguish it from other forms with the same id or name on your website. Note: If you handle the validation server-side and you are sibmitting to a different url then set this to false and use the forms id, name or formName option to differentiate it.
+If set to true this adds the website page's pathname to the name of the form to distinguish it from other forms with the same id or name on your website. Note: If you handle the validation server-side and you are submitting to a different url then set this to false and use the forms id, name or formName option to differentiate it.
 
 #### `addPathLength: -255`
 
-The length of the pathname to add to the formName when distinguishing it from froms on other pages of your website. Setting to a negative value is preferred so that it uses the last part of the pathname rather than the first.
+The length of the pathname to add to the formName when distinguishing it from forms on other pages of your website. Setting to a negative value is preferred so that it uses the last part of the pathname rather than the first.
 
 #### `loadInputs: true`
 
-True by default to allow the form to automatically reload form data if it is present in localStorage. Set this to false if the form data is being re-populated by a server-side script after the form has been submitted. (Used in combination with the 'resetOnSubmit' option.) If set to false it will update any futher changes to the data in a field but won't initially load the data from localStorage.
+True by default to allow the form to automatically reload form data if it is present in localStorage. Set this to false if the form data is being re-populated by a server-side script after the form has been submitted. (Used in combination with the 'resetOnSubmit' option.) If set to false it will update any further changes to the data in a field but won't initially load the data from localStorage.
 
 #### `resetOnSubmit: true`
 
