@@ -123,8 +123,17 @@
                 ) {
                     return;
                 }
-                var $plugin = this;
-                var name = this.getName(element);
+                var $plugin = this,
+                    name = this.getName(element),
+                    callbackMatch = undefined;
+                if($.saveMyForm.callbacks.length > 0) {
+                    $.each($.saveMyForm.callbacks, function(index, callback) {
+                        if(callback.match(element)) {
+                            callbackMatch = callback;
+                            return false;
+                        }
+                    });
+                }
                 if (name) {
                     $element
                         .change(function(e) {
@@ -141,7 +150,6 @@
                     } else {
                         // If another element is found with the same name that isn't a radio group,
                         // add multiple data to differentiate the field
-
                         if (!$element.is(':radio')) {
                             this._loadingList[name]++;
 
@@ -159,9 +167,12 @@
                     if (this._elementList.indexOf(name) === -1) {
                         this._elementList.push(name);
                     }
-
                     if (this.settings.loadInputs === true) {
-                        this.loadElement(element);
+                        if (callbackMatch && callbackMatch.loadElement) {
+                            callbackMatch.loadElement(element, this);
+                        } else {
+                            this.loadElement(element);
+                        }
                     }
                 }
             },
@@ -225,6 +236,10 @@
                         : '')
                 );
             }
+        },
+        callbacks: [],
+        addCallback: function(callback) {
+            $.saveMyForm.callbacks.push(callback);
         },
         getElementList: function(savedFormName) {
             return (
