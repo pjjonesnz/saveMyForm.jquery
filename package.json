@@ -52,6 +52,7 @@
     "karma-jasmine": "^3.1.0",
     "karma-jasmine-html-reporter": "^1.5.1",
     "karma-jquery": "^0.2.4",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-spec-reporter": "0.0.32",
     "node-minify": "^3.6.0",
     "rexreplace": "^5.1.5"
