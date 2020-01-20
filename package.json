@@ -4,7 +4,8 @@
   "description": "Save form state in the browser's localStorage",
   "main": "src/saveMyForm.jquery.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start --single-run",
+    "karma": "karma start",
     "minify": "node-minify --compressor babel-minify --input src/saveMyForm.jquery.js --output src/saveMyForm.jquery.min.js",
     "replace_version_in_js": "rexreplace \"\\* version: .*\" \"* version: %npm_package_version%\" src/saveMyForm.jquery.js -G",
     "changelog:patch": "changelog -p",
@@ -42,7 +43,18 @@
   "homepage": "https://github.com/pjjonesnz/saveMyForm.jquery#readme",
   "devDependencies": {
     "generate-changelog": "^1.8.0",
+    "jasmine": "^3.5.0",
+    "jasmine-core": "^3.5.0",
+    "jasmine-jquery": "^2.1.1",
+    "jquery": "^3.4.1",
+    "karma": "^4.4.1",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^3.1.0",
+    "karma-jasmine-html-reporter": "^1.5.1",
+    "karma-jquery": "^0.2.4",
+    "karma-spec-reporter": "0.0.32",
     "node-minify": "^3.6.0",
     "rexreplace": "^5.1.5"
-  }
+  },
+  "dependencies": {}
 }
