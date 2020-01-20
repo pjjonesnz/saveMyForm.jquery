@@ -1,5 +1,7 @@
 # Save My Form 2020 - a jQuery Plugin
 
+[![Build Status](https://travis-ci.org/pjjonesnz/saveMyForm.jquery.svg?branch=master)](https://travis-ci.org/pjjonesnz/saveMyForm.jquery)
+
 **Save form state in the browser's localStorage.**
 
 Fix the frustration of your site visitors filling in a long feedback, enquiry or booking form only to have their information lost before submission if their browser crashes or they get disconnected while on the go. Save My Form saves the form state in their local browser as they type, meaning that if they close down their browser their form will still have their information ready to complete when they return.
