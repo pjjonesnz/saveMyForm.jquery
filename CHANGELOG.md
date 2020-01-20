@@ -1,3 +1,9 @@
+#### 1.5.1 (2020-01-20)
+
+##### Tests
+
+*  Create initial jasmine tests ([efb5903a](https://github.com/pjjonesnz/saveMyForm.jquery/commit/efb5903aa5eca15af6cf2668b02624576271dbe1))
+
 ### 1.5.0 (2020-01-18)
 
 ##### Chores
