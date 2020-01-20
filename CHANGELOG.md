@@ -1,3 +1,13 @@
+#### 1.5.3 (2020-01-20)
+
+##### Chores
+
+*  Add travis.ci config ([af2f077f](https://github.com/pjjonesnz/saveMyForm.jquery/commit/af2f077f4297898a13d4a17ed45f134997a7e0b8))
+
+##### Documentation Changes
+
+*  Update readme ([b7f4ee17](https://github.com/pjjonesnz/saveMyForm.jquery/commit/b7f4ee17de5bb86794601f0fe87331d7261f7f06))
+
 #### 1.5.1 (2020-01-20)
 
 ##### Tests
