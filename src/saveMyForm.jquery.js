@@ -1,6 +1,6 @@
 /*!
  * Save My Form 2020 - a jQuery Plugin
- * version: 1.5.3
+ * version: 1.5.4
  * Copyright: 2020 Paul Jones
  * MIT license
  */

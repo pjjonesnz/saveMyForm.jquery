@@ -1,3 +1,17 @@
+#### 1.5.4 (2020-01-21)
+
+##### Chores
+
+*  Fix travis.yml ([c92ca848](https://github.com/pjjonesnz/saveMyForm.jquery/commit/c92ca848794269bc41bb36968dd3fbd344e6cf1a))
+
+##### Documentation Changes
+
+*  Added badges ([a5de10f8](https://github.com/pjjonesnz/saveMyForm.jquery/commit/a5de10f8524ac9863b4542a95962c0780ff6f0f7))
+
+##### Tests
+
+*  Add extensive unit tests ([0f9f2fc5](https://github.com/pjjonesnz/saveMyForm.jquery/commit/0f9f2fc5922f2c83b53100b3355429a797b6f7c7))
+
 #### 1.5.3 (2020-01-20)
 
 ##### Chores
