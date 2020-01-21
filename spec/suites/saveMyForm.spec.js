@@ -178,9 +178,9 @@ describe('saveMyForm', function() {
     });
 
     it('can clear entire element_list from localStorage', function() {
-        expect(localStorage.getItem('elementList_' + form_id)).not.toEqual(null);
+        expect(getLocalStorage('elementList_' + form_id)).not.toEqual(null);
         $('#' + form_id).saveMyForm('clearElementList');
-        expect(localStorage.getItem('elementList_' + form_id)).toEqual(null);
+        expect(getLocalStorage('elementList_' + form_id)).toEqual(null);
     });
 
     it('unnamed elements can have their value changed but...', function() {
@@ -200,11 +200,14 @@ describe('saveMyForm WITH custom options', function() {
 
     var save_formname = 'my_formname';
     var addPathToName = true;
+    var addPathLength = -10;
 
     function locSt(field) {
+        var pathName = window.location.pathname;
+        pathName = pathName.slice(addPathLength);
         return getLocalStorage(
             save_formname +
-                (addPathToName ? '___' + window.location.pathname : '') +
+                (addPathToName ? '___' + pathName : '') +
                 '_' +
                 field
         );
@@ -223,12 +226,20 @@ describe('saveMyForm WITH custom options', function() {
             include: ':input:not(#checkbox_2)',
             resetOnSubmit: false,
             formName: save_formname,
-            addPathToName: addPathToName
+            addPathToName: addPathToName,
+            addPathLength: addPathLength
         });
     });
 
     afterEach(function() {
         $('#' + form_id).remove();
+    });
+
+    it('adds a pathname to the field and form name to distinguish it', function() {
+        $('#text_input')
+            .val('very happy')
+            .change();
+        expect(locSt('text_input')).toEqual('very happy');
     });
 
     it("doesn't reset localStorage when resetOnSubmit is false", function() {
