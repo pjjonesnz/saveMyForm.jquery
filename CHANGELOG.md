@@ -1,3 +1,14 @@
+#### 1.5.5 (2020-01-21)
+
+##### Documentation Changes
+
+*  Updated readme ([c6cfb8f6](https://github.com/pjjonesnz/saveMyForm.jquery/commit/c6cfb8f66abbb90b6c011a526ae82981bd7d035d))
+
+##### Tests
+
+*  Remove jquery.js and jquery-ui.js helpers ([c6002bf1](https://github.com/pjjonesnz/saveMyForm.jquery/commit/c6002bf145eaffe21c9f6d72beacc84b085e46bb))
+*  Added test for pathname distinction options ([48741f12](https://github.com/pjjonesnz/saveMyForm.jquery/commit/48741f123d8f52b97fe98f2e59254ac27c081380))
+
 #### 1.5.4 (2020-01-21)
 
 ##### Chores
