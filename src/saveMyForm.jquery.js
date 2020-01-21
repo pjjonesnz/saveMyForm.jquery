@@ -272,6 +272,7 @@
     // Underscore debounce function
     // Copyright (c) 2009-2018 Jeremy Ashkenas, DocumentCloud and Investigative
     // Reporters & Editors
+    /* istanbul ignore next */
     function debounce(func, wait, immediate) {
         var timeout, args, context, timestamp, result;
         if (null == wait) wait = 100;

@@ -10,17 +10,28 @@ module.exports = function(config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'jquery-3.2.1'],
+        frameworks: ['jasmine'],
 
-        plugins: ['karma-jquery', 'karma-jasmine', 'karma-phantomjs-launcher'],
+        plugins: [
+            'karma-jquery',
+            'karma-jasmine',
+            'karma-phantomjs-launcher',
+            'karma-coverage'
+        ],
 
         // list of files / patterns to load in the browser
         files: [
             'spec/helpers/*.js',
+            'spec/helpers/jquery_ui/*.js',
             'spec/**/*spec.js',
             'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
             { pattern: 'spec/fixtures/*.html', included: false, served: true },
-            'src/saveMyForm.jquery.js'
+            'src/saveMyForm.jquery.js',
+            {
+                pattern: 'src/custom_callbacks/jqueryui.saveMyForm.js',
+                included: false,
+                served: true
+            }
         ],
 
         // list of files / patterns to exclude
@@ -28,12 +39,14 @@ module.exports = function(config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
+        preprocessors: {
+            'src/**/*.js': ['coverage']
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage'],
 
         // web server port
         port: 9876,
@@ -73,6 +86,14 @@ module.exports = function(config) {
                 //tells jasmine to run specs in semi random order, false is default
                 random: false
             }
+        },
+        coverageReporter: {
+            includeAllSources: true,
+            dir: 'coverage/',
+            reporters: [
+                { type: 'text-summary' },
+                { type: 'lcov', subdir: 'lcov' }
+            ]
         }
     });
 };
