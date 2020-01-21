@@ -1,6 +1,11 @@
 # Save My Form 2020 - a jQuery Plugin
 
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/pjjonesnz/saveMyForm.jquery)](https://github.com/pjjonesnz/saveMyForm.jquery/releases)
 [![Build Status](https://travis-ci.org/pjjonesnz/saveMyForm.jquery.svg?branch=master)](https://travis-ci.org/pjjonesnz/saveMyForm.jquery)
+[![Coverage Status](https://coveralls.io/repos/github/pjjonesnz/saveMyForm.jquery/badge.svg?branch=master)](https://coveralls.io/github/pjjonesnz/saveMyForm.jquery?branch=master)
+[![devDependencies Status](https://david-dm.org/pjjonesnz/saveMyForm.jquery/dev-status.svg)](https://david-dm.org/pjjonesnz/saveMyForm.jquery?type=dev)
+[![GitHub license](https://img.shields.io/github/license/pjjonesnz/saveMyForm.jquery)](https://github.com/pjjonesnz/saveMyForm.jquery/blob/master/LICENSE.md)
+[![npm](https://img.shields.io/npm/v/savemyform.jquery)](https://www.npmjs.com/package/savemyform.jquery)
 
 **Save form state in the browser's localStorage.**
 
