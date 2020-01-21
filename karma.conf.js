@@ -21,8 +21,8 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'spec/helpers/*.js',
-            'spec/helpers/jquery_ui/*.js',
+            'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/jquery-ui-dist/jquery-ui.min.js',
             'spec/**/*spec.js',
             'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
             { pattern: 'spec/fixtures/*.html', included: false, served: true },
