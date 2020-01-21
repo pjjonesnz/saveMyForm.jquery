@@ -34,22 +34,22 @@ Fix the frustration of your site visitors filling in a long feedback, enquiry or
 Include jQuery:
 
 ``` html
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
 ```
 
-Optional: Add ie8 support if required (note: add type="text/javascript" to other includes)
+**Optional:** Add ie8 support if required (note: add type="text/javascript" to other includes)
 
 ``` html
-<script type="text/javascript" src="src/ie8.support.js"></script>
+<script type="text/javascript" src="ie8.support.js"></script>
 ```
 
 Include the plugin javascript:
 
 ``` html
-<script src="src/saveMyForm.jquery.js"></script>
+<script src="saveMyForm.jquery.js"></script>
 ```
 
-Optional: Do you need jQuery UI Widget compatibility? Most widgets are already supported, but extra code is needed if you use the jQuery UI Selectmenu Widget. Certain elements also need to be bound to an input. See the jQuery UI demo for examples.
+**Optional:** Do you need jQuery UI Widget compatibility? Most widgets are already supported, but extra code is needed if you use the jQuery UI Selectmenu Widget. Certain elements also need to be bound to an input. See the jQuery UI demo for examples.
 
 ``` html
 <script src="custom_callbacks/jqueryui.saveMyForm.js"></script>
@@ -70,13 +70,13 @@ $(function () {
 
 ## Note
 
-For this scipt to work correctly the form input to be saved needs to have its name and/or id set. Inputs without this will be skipped.
+For this scipt to work correctly the form input to be saved needs to have its name and/or id set. Inputs without either of these set will be skipped.
 
 ## API
 
 ### Options
 
-You can pass options into Save My Form when you initialize the plugin. The default settings (if you just call `$("form").saveMyForm();`) are the same as calling the following:
+You can pass options into Save My Form when you initialize the plugin. The default settings if you call `$("#form_id").saveMyForm()` are the same as calling the following:
 
 ``` javascript
 $("#form_id").saveMyForm({
@@ -91,7 +91,7 @@ $("#form_id").saveMyForm({
 });
 ```
 
-The defaults are publically accessable, so if you prefer you can also preset the defaults for all following calls to saveMyForm(). You obviously wouldn't want to set the formName using this method.
+The defaults are publically accessable, so if you prefer you can also preset the defaults for all following calls to saveMyForm(). You obviously wouldn't want to set the formName using this method. eg:
 
 ``` javascript
 $.saveMyForm.defaults.resetOnSubmit = false;
@@ -100,14 +100,14 @@ $("#form2").saveMyForm();
 ```
 
 The available options are:
-* `exclude` – jQuery selectors to define form fields that you don't want to save data for. See: https://api.jquery.com/category/selectors/ for more about jQuery selectors
-* `include` - jQuery selectors to define form fields that you DO want to save data for. 
-* `formName` - the name to use when saving the form. Leave as undefined to automatically generate name.
+* `exclude` – jQuery selectors to define form input fields that you don't want to save data for. See: https://api.jquery.com/category/selectors/ for more about jQuery selectors.
+* `include` - jQuery selectors to define form fields that you DO want to save data for. Leave this to null to automatically include all input field types that aren't excluded with the previous option.
+* `formName` - the name to use when saving the form. Leave as undefined to automatically generate the storage name.
 * `addPathToName` - add the page path to the name of the form - to individually handle forms on different pages that have the same form name (whether the name is automatically or manually specified).
-* `addPathLength`- the length of the path to add to the form name,
-* `loadInputs` - reload input data from localStorage when page is re-loaded. 
-* `resetOnSubmit` - delete form data from localStorage when the form is submit 
-* `sameNameSeparator` - the separator to be used between the field name and an index number in the localStorage key when multiple form fields have the same name.
+* `addPathLength`- the length of the path to add to the form name. se a negative number like the default to select from the end of the path.
+* `loadInputs` - reload input data from localStorage when the page is re-loaded.
+* `resetOnSubmit` - delete input data from localStorage when the form is submitted.
+* `sameNameSeparator` - the separator to be used between the field name and an index number in the localStorage key when multiple form fields have the same name. (eg. radio groups)
 
 ### Notes about the script options
 
@@ -115,7 +115,7 @@ The available options are:
 
 The default settings in the 'exclude' option means that password, hidden and file-upload type fields aren't saved to the browser (of course all this information will be submitted to your website - it just isn't stored in the localStorage of the user's browser if they shut it down). 
 
-The default selector class `disable_save` also causes form fields with that class not to be saved to the browser. To achieve this just add `disable_save` to the field like the following example:
+The default class selector `disable_save` causes form fields that have that class not to be saved to localStorage. To achieve this just add `disable_save` to the field class like the following example:
 
 ``` html
 <input type="text" name="my_field" class="disable_save" />
@@ -131,7 +131,7 @@ If undefined it is automatically set to the form id, form name or the page's pat
 
 #### `addPathToName: false`
 
-If set to true this adds the website page's pathname to the name of the form to distinguish it from other forms with the same id or name on your website. Note: If you handle the validation server-side and you are submitting to a different url then set this to false and use the forms id, name or formName option to differentiate it.
+If set to true this adds the current page's pathname to the name of the form to distinguish it from other forms with the same id or name on your website. Note: If you handle the validation server-side and you are submitting to a different url then set this to false and use the form's id, name or formName option to differentiate it.
 
 #### `addPathLength: -255`
 
@@ -139,11 +139,11 @@ The length of the pathname to add to the formName when distinguishing it from fo
 
 #### `loadInputs: true`
 
-True by default to allow the form to automatically reload form data if it is present in localStorage. Set this to false if the form data is being re-populated by a server-side script after the form has been submitted. (Used in combination with the 'resetOnSubmit' option.) If set to false it will update any further changes to the data in a field but won't initially load the data from localStorage.
+True by default to allow the form to automatically reload form data if it is present in localStorage. Set this to false if the form data is being re-populated by a server-side script after the form has been submitted. (Used in combination with the 'resetOnSubmit' option.) If set to false it will save any further updates to the data in a field but won't initially load the data from localStorage.
 
 #### `resetOnSubmit: true`
 
-Resets the localStorage for that form when the form is submit. If form submission is cancelled by a subsequent script (eg. a form validation script), or if a server-side script is used to validate the form and the page is reloaded as it is invalid, then this may cause the data in localStorage to be cleared even though the form isn't accepted for submission. Please note that having this setting set to true may also reset their saved information if they successfully submitted the form but they moved out of range of an Internet connection. If any of these issues are valid for your site, then you may prefer to set this option to false and add a custom script to reset the form's localStorage when the server redirects to your 'Submission successful' page. You can do this using the 'clearStorage' method outlined below.
+Automatically resets the localStorage for that form when the form is submit. If form submission is cancelled by a subsequent script (eg. a form validation script), or if a server-side script is used to validate the form and the page is reloaded as it is invalid, then this may cause the data in localStorage to be cleared even though the form isn't accepted for submission. Please note that having this setting set to true may also reset the stored data if the form was submitted after the user moved out of range of an Internet connection. If any of these issues are valid for your site, then you may prefer to set this option to false and add a custom script to reset the form's localStorage when the server redirects to your 'Submission successful' page. You can do this using the 'clearStorage' method outlined below. If submitting the form via ajax it would be better to manually call the 'clearStorage' method on the ajax success response.
 
 ### Public Plugin Methods
 
@@ -157,7 +157,7 @@ $.saveMyForm.clearStorage('storedFormName');
 $.saveMyForm.clearStorage(the_pathname + '_' + 'storedFormName');
 ```
 
-* `addCallback` - Adds a Custom Callback to match custom elements which need a little extra help in setting their data. See 'Custom callbacks' below.
+* `addCallback` - Adds a Custom Callback to match custom elements which need a little extra help in setting their data. For more details see 'Custom callbacks' below.
 
 ### Methods to call on plugin instance
 
@@ -165,9 +165,17 @@ When Save My Form is initialized, you can use API methods to perform certain fun
 
 * `clearStorage` - clear the localStorage of the form (eg. call on successful ajax submission to reset all data)
 
+## Handling dynamically set field values
+
+If you set a field value using code the field won't save unless you tell it that it has changed. The easiest way to do this using jQuery is to add `.change()` after setting the value.
+
+``` javascript
+$("#form_field_id").val('New Value').change();
+```
+
 ## Custom callbacks
 
-The UI for custom javascript input controls (eg. the jQuery UI Selectmenu Widget) don't always have the standard jQuery change event triggered when their data changes. This can cause the element to not update the localStorage. When the form is initialized the UI of your custom control may also need to be refreshed.
+The UI of custom javascript input controls (eg. the jQuery UI Selectmenu Widget) don't always have the standard jQuery change event triggered when their data changes. This can cause the element to not update localStorage. When the form is initialized the UI of your custom control may also need to be refreshed to reflect the newly loaded data.
 
 You can add custom callbacks to an element to handle this yourself.
 
@@ -189,15 +197,7 @@ In the `/custom_callbacks/` folder you'll find a callback all ready for the jQue
 <script src="custom_callbacks/jqueryui.saveMyForm.js"></script>
 ```
 
-Have a read of the comments of this code if you want to learn how to create your own custom callback.
-
-### Handling dynamically set field values
-
-If you set a field value using code, the field won't save unless you tell it that it has changed. The easiest way to do this using jQuery is to add `.change()` after setting the value.
-
-``` javascript
-$("#form_field_id").val('New Value').change();
-```
+Have a read of the comments in the `jqueryui.saveMyForm.js` code if you want to learn how to create your own custom callback.
 
 ## Compatibility
 
@@ -234,6 +234,8 @@ Distributed under [MIT license](https://github.com/pjjonesnz/saveMyForm.jquery/b
 
 ## Contributing
 
-Feel free to contribute to this plugin by creating a pull request of your changes. I would LOVE to hear how it is being used.
+Feel free to contribute to this plugin by creating a pull request of your changes.
+
+I would LOVE to hear how this plugin is being used. 
 
 Enjoy!
