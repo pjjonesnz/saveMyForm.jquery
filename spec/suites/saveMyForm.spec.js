@@ -177,7 +177,7 @@ describe('saveMyForm', function() {
         expect(locSt('text_input')).toEqual(null);
     });
 
-    it('can clear entire element_list from localStorage', function() {
+    it('can call privatish methods in plugin', function() {
         expect(getLocalStorage('elementList_' + form_id)).not.toEqual(null);
         $('#' + form_id).saveMyForm('clearElementList');
         expect(getLocalStorage('elementList_' + form_id)).toEqual(null);
@@ -192,6 +192,122 @@ describe('saveMyForm', function() {
     it("... unnamed elements aren't saved", function() {
         var input = $('input[value="Unnamed"]');
         expect(input.val()).toEqual('Unnamed');
+    });
+});
+
+describe('saveMyForm with elements not automatically loaded', function() {
+    var form_id = 'my_form';
+
+    var save_formname = 'my_formname';
+
+    function locSt(field) {
+        return getLocalStorage(form_id + '_' + field);
+    }
+
+    beforeAll(function() {
+        localStorage.clear();
+    });
+
+    afterAll(function() {});
+
+    beforeEach(function() {
+        jasmine.getFixtures().fixturesPath = 'base/spec/fixtures';
+        loadFixtures('form.html');
+        $('#' + form_id).saveMyForm({
+            loadInputs: false
+        });
+    });
+
+    afterEach(function() {
+        $('#' + form_id).remove();
+    });
+
+    it("stores's values", function() {
+        $('#text_input')
+            .val('Apple')
+            .change();
+        expect(locSt('text_input')).toEqual('Apple');
+    });
+
+    it("doesn't automatically load stored values", function() {
+        expect($('#text_input').val()).toEqual('sad');
+    });
+
+    it('allows you to call a privatish method to load an element manually', function() {
+        $('#' + form_id).saveMyForm('loadElement','#text_input');
+        expect($('#text_input').val()).toEqual('Apple');
+    });
+
+    it("will ignore a call if you call a function that doesn't exist", function() {
+        expect(function() { $('#' + form_id).saveMyForm('not_a_function')}).not.toThrow();
+    });
+});
+
+describe('saveMyForm - forms with no form element', function() {
+    beforeAll(function() {
+        localStorage.clear();
+    });
+
+    afterAll(function() {});
+
+    beforeEach(function() {
+        jasmine.getFixtures().fixturesPath = 'base/spec/fixtures';
+        loadFixtures('non_standard_forms.html');
+        $('div').saveMyForm();
+    });
+
+    afterEach(function() {
+        $('div').remove();
+    });
+
+    it("won't load input elements if it isn't a html form element and doesn't have a name", function() {
+        expect(
+            $('div')
+                .eq(2)
+                .data('plugin_saveMyForm')._formName
+        ).toEqual(undefined);
+        expect(
+            $('div')
+                .eq(2)
+                .data('plugin_saveMyForm')._elementList.length
+        ).toEqual(0);
+    });
+
+    it("won't load input elements that don't have an id or name", function() {
+        expect(
+            $('[name="input_blank_form"]').data('plugin_saveMyForm')
+                ._elementList.length
+        ).toEqual(0);
+    });
+
+    it("will load input elements even in a form that isn't a html form element", function() {
+        expect(
+            $('#a_form').data('plugin_saveMyForm')._elementList.length
+        ).toEqual(1);
+    });
+
+    it("will store the value of input elements in a form that isn't a html form", function() {
+        $('#an_input')
+            .val('Some text')
+            .change();
+        expect(getLocalStorage('a_form_an_input')).toEqual('Some text');
+    });
+
+    it("will reload the value of input elements in a form that isn't a html form", function() {
+        expect($('#an_input').val()).toEqual('Some text');
+    });
+
+    it('works with forms that have a name instead of an id', function() {
+        expect(
+            $('[name="form_with_name_not_id"]').data('plugin_saveMyForm')
+                ._elementList.length
+        ).toEqual(1);
+    });
+
+    it("doesn't throw an error if you clearStorage on a form that has no elements", function() {
+        expect(function() {
+            $.saveMyForm.clearStorage('input_blank_form');
+        }).not.toThrow();
     });
 });
 

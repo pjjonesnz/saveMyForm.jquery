@@ -29,7 +29,7 @@
                     if (methodOrOptions === 'clearStorage') {
                         $.saveMyForm.clearStorage($plugin._formName);
                     } else {
-                        if (typeof args !== 'array') {
+                        if (!$.isArray(args)) {
                             args = [args];
                         }
                         if (typeof $plugin[methodOrOptions] === 'function') {
@@ -197,7 +197,6 @@
                 var name = this.getName(event.target),
                     $element = $(event.target),
                     value;
-                if (!name) return;
                 if ($(event.target).is(':checkbox')) {
                     value = $element.prop('checked');
                 } else {
@@ -249,18 +248,13 @@
             );
         },
         clearStorage: function(savedFormName) {
-            try {
-                var elements = $.saveMyForm.getElementList(savedFormName);
-                if (elements.length > 0) {
-                    $.each(elements, function(key, value) {
-                        localStorage.removeItem(value);
-                    });
-                    return true;
-                }
-            } catch (err) {
-                console.log(err);
+            var elements = $.saveMyForm.getElementList(savedFormName);
+            if (elements.length > 0) {
+                $.each(elements, function(key, value) {
+                    localStorage.removeItem(value);
+                });
+                return true;
             }
-            return false;
         }
     });
 
