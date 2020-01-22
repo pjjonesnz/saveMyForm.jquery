@@ -6,7 +6,7 @@
   "scripts": {
     "test": "karma start --single-run",
     "karma": "karma start",
-    "minify": "node-minify --compressor babel-minify --input src/saveMyForm.jquery.js --output src/saveMyForm.jquery.min.js",
+    "minify": "uglifyjs src/saveMyForm.jquery.js -c -m -o src/saveMyForm.jquery.min.js",
     "replace_version_in_js": "rexreplace \"\\* version: .*\" \"* version: %npm_package_version%\" src/saveMyForm.jquery.js -G",
     "changelog:patch": "changelog -p",
     "changelog:minor": "changelog -m",
@@ -57,8 +57,8 @@
     "karma-jquery": "^0.2.4",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-spec-reporter": "0.0.32",
-    "node-minify": "^3.6.0",
-    "rexreplace": "^5.1.5"
+    "rexreplace": "^5.1.5",
+    "uglify-js": "^3.7.6"
   },
   "dependencies": {}
 }
