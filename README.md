@@ -29,6 +29,8 @@ Fix the frustration of your site visitors filling in a long feedback, enquiry or
 
 [View the jQuery UI Widget demo](https://www.pauljones.co.nz/github/saveMyForm.jquery/demo/jquery_ui_demo.html)
 
+[Codesandbox: CKEditor 5 + saveMyForm.jquery ](https://codesandbox.io/s/ckeditor-5-savemyform-example-wuoho)
+
 ## Usage
 
 Include jQuery:

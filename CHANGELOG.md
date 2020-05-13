@@ -1,3 +1,18 @@
+#### 1.5.6 (2020-05-13)
+
+##### Chores
+
+*  Change minify script to use uglify-js ([609ee1bf](https://github.com/pjjonesnz/saveMyForm.jquery/commit/609ee1bf7b6c7b2d8e998e1f39f47001552d4040))
+
+##### Documentation Changes
+
+*  Added link to CKEditor 5 sandbox example ([f10f651d](https://github.com/pjjonesnz/saveMyForm.jquery/commit/f10f651da9d900a936fe1d4b9ce3b04ce929a318))
+
+##### Tests
+
+*  Expand tests to cover 100% ([c493ad41](https://github.com/pjjonesnz/saveMyForm.jquery/commit/c493ad41c4d58cc8c2d8c4966c8ca589d55acb34))
+*  Change CDN for test scripts to cdnjs ([297c43b2](https://github.com/pjjonesnz/saveMyForm.jquery/commit/297c43b2462a6305dfdd4da7aea67f4a210fcecf))
+
 #### 1.5.5 (2020-01-21)
 
 ##### Documentation Changes
