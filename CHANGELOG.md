@@ -1,3 +1,14 @@
+#### 1.5.7 (2026-10-28)
+
+##### Chores
+
+*  Fix version script on non-Windows shells and limit published files ([ea90ee9b](https://github.com/pjjonesnz/saveMyForm.jquery/commit/ea90ee9bcd43c82b9a925818015c21d5f576834c))
+*  Upgrade karma to 6.4.4 and move CI to GitHub Actions ([5c6bb715](https://github.com/pjjonesnz/saveMyForm.jquery/commit/5c6bb7158639b68d1963ce3433e61fb6602e14cb))
+
+##### Tests
+
+*  Cover passing method arguments as an array ([a27104de](https://github.com/pjjonesnz/saveMyForm.jquery/commit/a27104de0298a3d6a6f6af78f2eb8944698b83a2))
+
 #### 1.5.6 (2020-05-13)
 
 ##### Chores
