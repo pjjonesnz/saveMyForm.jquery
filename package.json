@@ -3,11 +3,15 @@
   "version": "1.5.6",
   "description": "Save form state in the browser's localStorage",
   "main": "src/saveMyForm.jquery.js",
+  "files": [
+    "src",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "test": "karma start --single-run",
     "karma": "karma start",
     "minify": "uglifyjs src/saveMyForm.jquery.js -c -m -o src/saveMyForm.jquery.min.js",
-    "replace_version_in_js": "rexreplace \"\\* version: .*\" \"* version: %npm_package_version%\" src/saveMyForm.jquery.js -G",
+    "replace_version_in_js": "rexreplace \"\\* version: .*\" \"'* version: ' + process.env.npm_package_version\" src/saveMyForm.jquery.js -j",
     "changelog:patch": "changelog -p",
     "changelog:minor": "changelog -m",
     "changelog:major": "changelog -M",
