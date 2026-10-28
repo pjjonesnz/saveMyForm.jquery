@@ -238,6 +238,11 @@ describe('saveMyForm with elements not automatically loaded', function() {
         expect($('#text_input').val()).toEqual('Apple');
     });
 
+    it('accepts method arguments passed as an array', function() {
+        $('#' + form_id).saveMyForm('loadElement', ['#text_input']);
+        expect($('#text_input').val()).toEqual('Apple');
+    });
+
     it("will ignore a call if you call a function that doesn't exist", function() {
         expect(function() { $('#' + form_id).saveMyForm('not_a_function')}).not.toThrow();
     });
